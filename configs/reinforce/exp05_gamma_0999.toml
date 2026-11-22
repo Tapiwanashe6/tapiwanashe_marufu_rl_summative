@@ -1,0 +1,7 @@
+name = "exp05_gamma_0999"
+description = "Discount 0.999 (near-undiscounted shift return, higher variance)"
+
+[hyperparameters]
+gamma = 0.999
+
+[env]

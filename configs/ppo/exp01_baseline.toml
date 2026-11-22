@@ -1,0 +1,6 @@
+name = "exp01_baseline"
+description = "Reference: lr 3e-4, clip 0.2, 4 epochs, GAE lambda 0.95, entropy 0.01, rollout 2048 (4 envs), minibatch 256"
+
+[hyperparameters]
+
+[env]

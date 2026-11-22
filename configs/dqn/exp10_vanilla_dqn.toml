@@ -1,0 +1,7 @@
+name = "exp10_vanilla_dqn"
+description = "Vanilla DQN target (Double DQN off): overestimation bias"
+
+[hyperparameters]
+double_dqn = false
+
+[env]

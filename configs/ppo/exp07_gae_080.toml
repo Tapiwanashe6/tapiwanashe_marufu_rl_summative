@@ -1,0 +1,7 @@
+name = "exp07_gae_080"
+description = "GAE lambda 0.80 (lower variance, more bias)"
+
+[hyperparameters]
+gae_lambda = 0.8
+
+[env]

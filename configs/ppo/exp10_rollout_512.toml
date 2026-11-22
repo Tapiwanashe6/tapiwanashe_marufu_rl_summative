@@ -1,0 +1,8 @@
+name = "exp10_rollout_512"
+description = "Short rollouts: 512 frames per update, minibatch 128"
+
+[hyperparameters]
+frames_per_batch = 512
+minibatch_size = 128
+
+[env]

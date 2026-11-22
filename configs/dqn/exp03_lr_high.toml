@@ -1,0 +1,7 @@
+name = "exp03_lr_high"
+description = "Learning rate 2e-3 (faster but risk of divergence)"
+
+[hyperparameters]
+lr = 0.002
+
+[env]

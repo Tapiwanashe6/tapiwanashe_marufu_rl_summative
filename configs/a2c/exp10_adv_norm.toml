@@ -1,0 +1,7 @@
+name = "exp10_adv_norm"
+description = "Per-batch advantage normalisation on"
+
+[hyperparameters]
+normalize_advantage = true
+
+[env]

@@ -1,0 +1,7 @@
+name = "exp02_lr_low"
+description = "Learning rate 2e-4"
+
+[hyperparameters]
+lr = 0.0002
+
+[env]

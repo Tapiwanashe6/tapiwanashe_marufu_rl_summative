@@ -1,0 +1,7 @@
+name = "exp06_rollout_256"
+description = "Longer rollouts: 8 envs x 32 steps (256 frames/update)"
+
+[hyperparameters]
+frames_per_batch = 256
+
+[env]

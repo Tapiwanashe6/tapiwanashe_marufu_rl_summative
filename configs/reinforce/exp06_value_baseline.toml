@@ -1,0 +1,7 @@
+name = "exp06_value_baseline"
+description = "Learned state-value baseline: advantage = G_t - V(s_t)"
+
+[hyperparameters]
+use_baseline = true
+
+[env]

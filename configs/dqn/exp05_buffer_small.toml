@@ -1,0 +1,7 @@
+name = "exp05_buffer_small"
+description = "Replay buffer 10k (more on-policy, less decorrelated replay)"
+
+[hyperparameters]
+buffer_size = 10000
+
+[env]

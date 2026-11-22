@@ -1,0 +1,7 @@
+name = "exp06_batch_small"
+description = "Batch size 32 (noisier gradients)"
+
+[hyperparameters]
+batch_size = 32
+
+[env]

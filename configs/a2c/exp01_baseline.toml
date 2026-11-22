@@ -1,0 +1,6 @@
+name = "exp01_baseline"
+description = "Reference: lr 7e-4, 8 envs x 8 steps (64 frames/update), GAE lambda 1.0 (n-step returns), entropy 0.01, critic coeff 0.5"
+
+[hyperparameters]
+
+[env]

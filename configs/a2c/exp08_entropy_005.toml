@@ -1,0 +1,7 @@
+name = "exp08_entropy_005"
+description = "Entropy coefficient 0.05"
+
+[hyperparameters]
+entropy_coeff = 0.05
+
+[env]

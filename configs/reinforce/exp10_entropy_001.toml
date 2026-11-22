@@ -1,0 +1,7 @@
+name = "exp10_entropy_001"
+description = "Entropy bonus 0.01"
+
+[hyperparameters]
+entropy_coeff = 0.01
+
+[env]

@@ -1,0 +1,7 @@
+name = "exp06_epochs_10"
+description = "10 optimisation epochs per rollout (more sample reuse)"
+
+[hyperparameters]
+ppo_epochs = 10
+
+[env]

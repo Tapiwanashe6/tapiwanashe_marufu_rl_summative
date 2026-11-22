@@ -1,0 +1,7 @@
+name = "exp04_gae_095"
+description = "GAE lambda 0.95 advantages"
+
+[hyperparameters]
+gae_lambda = 0.95
+
+[env]

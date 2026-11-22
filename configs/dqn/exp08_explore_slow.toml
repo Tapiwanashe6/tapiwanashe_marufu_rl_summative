@@ -1,0 +1,8 @@
+name = "exp08_explore_slow"
+description = "Slow exploration decay: eps 1.0->0.10 over 250k frames"
+
+[hyperparameters]
+eps_decay_frames = 250000
+eps_end = 0.1
+
+[env]

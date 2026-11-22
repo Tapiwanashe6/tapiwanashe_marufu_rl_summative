@@ -1,0 +1,7 @@
+name = "exp05_td0"
+description = "GAE lambda 0 = one-step TD actor-critic (lowest variance, highest bias)"
+
+[hyperparameters]
+gae_lambda = 0.0
+
+[env]

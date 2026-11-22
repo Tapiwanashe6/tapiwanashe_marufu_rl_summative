@@ -32,7 +32,6 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass, field, asdict
-import math
 from typing import Any
 
 import gymnasium as gym
@@ -113,11 +112,11 @@ class Order:
                     self.ptype.cold_chain_min - (0.0 if self.loaded_at is None else now - self.loaded_at), 2)}
 
 
-STAT_KEYS = ("orders_created", "delivered_on_time", "delivered_late", "expired",
+STAT_KEYS = ("requests_total", "rejected_busy", "critical_requests", "value_requested", "orders_created", "delivered_on_time", "delivered_late", "expired",
              "spoiled", "lost_in_crash", "undelivered_onboard_at_end", "pending_at_end",
              "invalid_actions", "crashes", "energy_used", "distance_km", "flight_minutes",
              "charge_minutes", "value_delivered", "value_available",
-             "critical_created", "critical_on_time")
+             "critical_created", "critical_on_time", "delivery_lead_time_total")
 
 
 class MediFlightEnv(gym.Env):
@@ -176,24 +175,71 @@ class MediFlightEnv(gym.Env):
         self._events: list[dict] = []
         self._done = False
         self._step_reward, self._breakdown = 0.0, defaultdict(float)
-        if self.cfg.initial_weather is None:
-            self.weather = int(self.np_random.choice(3, p=E.stationary_weather_distribution()))
-        else:
-            self.weather = int(self.cfg.initial_weather)
-        lo, hi = self.cfg.initial_orders
-        n0 = int(self.np_random.integers(lo, hi + 1))
-        for s in self.np_random.choice(E.N_SITES, size=n0, replace=False):
-            self._create_order(int(s), 0.0)
+        initial = self._generate_world()
+        self.weather = int(self._weather_path[0])
+        for site, attrs in initial:
+            self._create_order(site, 0.0, attrs)
         self._started = True
         return self._observation(), self._info(action=None, valid=True)
 
-    def _create_order(self, site: int, t: float) -> None:
-        kind = E.SITES[site].kind
-        types, probs = zip(*E.SITE_DEMAND[kind])
-        ptype = types[int(self.np_random.choice(len(types), p=np.asarray(probs)))]
-        weight = float(self.np_random.uniform(*ptype.weight_kg))
-        deadline = t + float(self.np_random.uniform(*ptype.deadline_min))
-        order = Order(self._next_order_id, site, ptype, weight, t, deadline)
+    def _generate_world(self) -> list[tuple[int, tuple]]:
+        """Pre-sample everything exogenous to the agent (common random numbers).
+
+        Order requests (times, sites, package attributes) and the weather path are
+        drawn up front from their own generators, so on a given seed every policy
+        faces exactly the same demand and weather; only the agent's own actions
+        differ.  Gust noise uses a third, separate generator.
+        """
+        seeds = self.np_random.integers(0, 2**63 - 1, size=3)
+        demand_rng, weather_rng, self._gust_rng = (np.random.default_rng(int(x)) for x in seeds)
+        # Weather: path[k] is the weather during [10k, 10k + 10) minutes.
+        if self.cfg.initial_weather is None:
+            w = int(weather_rng.choice(3, p=E.stationary_weather_distribution()))
+        else:
+            w = int(self.cfg.initial_weather)
+        n_ticks = int((self.cfg.horizon_min + 600.0) // E.WEATHER_STEP_MIN) + 1
+        path = [w]
+        for _ in range(n_ticks):
+            path.append(int(weather_rng.choice(3, p=self._weather_P[path[-1]])))
+        self._weather_path = np.asarray(path, dtype=np.int64)
+        # Initial orders at t = 0.
+        lo, hi = self.cfg.initial_orders
+        n0 = int(demand_rng.integers(lo, hi + 1))
+        initial = [(int(site), self._draw_order_attrs(demand_rng, int(site)))
+                   for site in demand_rng.choice(E.N_SITES, size=n0, replace=False)]
+        # Order requests during the shift: independent Poisson process per site.
+        arrivals = []
+        for site_idx, site in enumerate(E.SITES):
+            rate = E.ARRIVAL_RATE_PER_MIN[site.kind] * self.cfg.arrival_scale
+            if rate <= 0:
+                continue
+            t = float(demand_rng.exponential(1.0 / rate))
+            while t < self.cfg.horizon_min:
+                arrivals.append((t, site_idx, self._draw_order_attrs(demand_rng, site_idx)))
+                t += float(demand_rng.exponential(1.0 / rate))
+        arrivals.sort(key=lambda a: (a[0], a[1]))
+        self._arrivals, self._arrival_idx = arrivals, 0
+        return initial
+
+    @staticmethod
+    def _draw_order_attrs(rng: np.random.Generator, site: int) -> tuple:
+        types, probs = zip(*E.SITE_DEMAND[E.SITES[site].kind])
+        ptype = types[int(rng.choice(len(types), p=np.asarray(probs)))]
+        return ptype, float(rng.uniform(*ptype.weight_kg)), float(rng.uniform(*ptype.deadline_min))
+
+    def _create_order(self, site: int, t: float, attrs: tuple) -> None:
+        ptype, weight, allowance = attrs
+        self.stats["requests_total"] += 1
+        self.stats["value_requested"] += ptype.value
+        if ptype.urgency == 3:
+            self.stats["critical_requests"] += 1
+        if self.orders[site] is not None:
+            # One active order per site: a further request while the site is still
+            # being served is handed to ground transport (counted, not hidden).
+            self.stats["rejected_busy"] += 1
+            self._emit("order_rejected", site=site, package=ptype.name)
+            return
+        order = Order(self._next_order_id, site, ptype, weight, t, t + allowance)
         self._next_order_id += 1
         self.orders[site] = order
         self.stats["orders_created"] += 1
@@ -204,26 +250,40 @@ class MediFlightEnv(gym.Env):
 
     # ------------------------------------------------------------- time model
     def _advance(self, minutes: float) -> None:
-        """Advance the world clock: weather, order arrivals, deadlines, cold chain."""
+        """Advance the world clock, processing exogenous events in time order.
+
+        Weather ticks and order requests inside (t, t + minutes] are applied in
+        chronological order; deadlines and cold-chain limits are checked at each
+        event time and at the end of the interval.
+        """
         if minutes <= 0:
             return
         t0, t1 = self.time, self.time + minutes
-        # Weather Markov chain ticks at every 10-minute boundary crossed.
-        for _ in range(int(t0 // E.WEATHER_STEP_MIN) + 1, int(t1 // E.WEATHER_STEP_MIN) + 1):
-            new = int(self.np_random.choice(3, p=self._weather_P[self.weather]))
-            if new != self.weather:
-                self.weather = new
-                self._emit("weather", weather=E.WEATHER_NAMES[new])
-        # Poisson arrivals at sites without an active order, only within the shift.
-        span = max(0.0, min(t1, self.cfg.horizon_min) - t0)
-        if span > 0:
-            for s, site in enumerate(E.SITES):
-                if self.orders[s] is not None:
-                    continue
-                rate = E.ARRIVAL_RATE_PER_MIN[site.kind] * self.cfg.arrival_scale
-                if self.np_random.random() < 1.0 - math.exp(-rate * span):
-                    self._create_order(s, t0 + float(self.np_random.random()) * span)
+        events: list[tuple[float, int, object]] = []
+        for k in range(int(t0 // E.WEATHER_STEP_MIN) + 1, int(t1 // E.WEATHER_STEP_MIN) + 1):
+            events.append((k * E.WEATHER_STEP_MIN, 0, k))
+        while (self._arrival_idx < len(self._arrivals)
+               and self._arrivals[self._arrival_idx][0] <= t1):
+            ta, site, attrs = self._arrivals[self._arrival_idx]
+            events.append((ta, 1, (site, attrs)))
+            self._arrival_idx += 1
+        events.sort(key=lambda e: (e[0], e[1]))
+        for te, kind, payload in events:
+            self.time = te
+            self._check_deadlines()
+            if kind == 0:
+                k = min(int(payload), len(self._weather_path) - 1)
+                new = int(self._weather_path[k])
+                if new != self.weather:
+                    self.weather = new
+                    self._emit("weather", weather=E.WEATHER_NAMES[new])
+            else:
+                site, attrs = payload
+                self._create_order(site, te, attrs)
         self.time = t1
+        self._check_deadlines()
+
+    def _check_deadlines(self) -> None:
         # Deadlines: pending orders are reassigned (expired); on-board orders become late.
         for s, o in enumerate(self.orders):
             if o is None or o.deadline_missed or o.deadline >= self.time:
@@ -342,7 +402,7 @@ class MediFlightEnv(gym.Env):
         d = self.spec_drone
         dist = float(E.DISTANCE_KM[self.location, dest])
         exp_energy, minutes = E.leg_expectation(d, dist, self.payload_weight, self.weather)
-        gust = float(np.clip(self.np_random.normal(1.0, d.energy_noise_sd), 0.8, 1.25))
+        gust = float(np.clip(self._gust_rng.normal(1.0, d.energy_noise_sd), 0.8, 1.25))
         energy = exp_energy * gust
         origin = self.location
         self._emit("takeoff", origin=origin, destination=dest,
@@ -400,6 +460,7 @@ class MediFlightEnv(gym.Env):
         on_time = self.time <= o.deadline and not o.deadline_missed
         self.payload.remove(s)
         self.orders[s] = None
+        self.stats["delivery_lead_time_total"] += self.time - o.created
         if on_time:
             self.stats["delivered_on_time"] += 1
             self.stats["value_delivered"] += o.ptype.value

@@ -1,0 +1,8 @@
+name = "exp09_soft_target"
+description = "Soft (Polyak) target update, tau 0.005, instead of hard updates"
+
+[hyperparameters]
+target_update = "soft"
+tau = 0.005
+
+[env]

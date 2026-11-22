@@ -1,0 +1,7 @@
+name = "exp05_clip_030"
+description = "Clip epsilon 0.3 (larger policy steps)"
+
+[hyperparameters]
+clip_epsilon = 0.3
+
+[env]

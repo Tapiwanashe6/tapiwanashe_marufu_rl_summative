@@ -1,0 +1,7 @@
+name = "exp04_clip_010"
+description = "Clip epsilon 0.1 (more conservative updates)"
+
+[hyperparameters]
+clip_epsilon = 0.1
+
+[env]

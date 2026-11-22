@@ -1,0 +1,7 @@
+name = "exp08_episodes_2"
+description = "2 episodes per update (high-variance gradient)"
+
+[hyperparameters]
+episodes_per_batch = 2
+
+[env]

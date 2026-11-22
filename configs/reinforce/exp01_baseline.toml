@@ -1,0 +1,6 @@
+name = "exp01_baseline"
+description = "Reference: lr 1e-3, gamma 0.99, 8 episodes/update, Monte-Carlo returns normalised, no baseline"
+
+[hyperparameters]
+
+[env]

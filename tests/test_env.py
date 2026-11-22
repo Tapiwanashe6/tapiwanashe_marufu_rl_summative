@@ -26,16 +26,13 @@ def quiet_env(**overrides) -> MediFlightEnv:
                     **overrides)
     env = MediFlightEnv(cfg)
     env.reset(seed=0)
-    env._weather_P = np.eye(3)  # freeze weather
+    env._weather_path[:] = 0    # calm for the whole episode
     return env
 
 
 def put_order(env, site, ptype=E.MEDICINE, weight=1.0, deadline=200.0):
-    o = Order(env._next_order_id, site, ptype, weight, env.time, deadline)
-    env._next_order_id += 1
-    env.orders[site] = o
-    env.stats["orders_created"] += 1
-    return o
+    env._create_order(site, env.time, (ptype, weight, deadline - env.time))
+    return env.orders[site]
 
 
 def accounting_balances(info) -> bool:
@@ -315,3 +312,54 @@ def test_stranded_at_site_is_mission_failure():
     assert te and not tr and info["crashes"] == 1 and env.time > t0
     assert info["reward_breakdown"]["crash"] == -env.cfg.reward.crash_penalty
     assert accounting_balances(info)
+
+
+# ------------------------------------------------ comparability & metrics
+def _exogenous_trace(policy_name, seed):
+    """All order requests (incl. rejected) and the weather seen at 10-min ticks."""
+    env = MediFlightEnv(record_events=True)
+    rng = np.random.default_rng(seed + 10_000)
+    _, info = env.reset(seed=seed)
+    requests = [(0.0, e["site"]) for e in info["events"] if e["type"] == "order_created"]
+    done = False
+    while not done:
+        _, _, te, tr, info = env.step(BASELINES[policy_name](env, rng))
+        requests += [(e["t"], e["site"]) for e in info["events"]
+                     if e["type"] in ("order_created", "order_rejected")]
+        done = te or tr
+    return sorted(requests), env._weather_path.copy(), env.time
+
+
+@pytest.mark.parametrize("seed", [0, 7, 42])
+def test_policies_face_identical_demand_and_weather(seed):
+    """Common random numbers: exogenous demand/weather do not depend on actions."""
+    edf_req, edf_w, edf_t = _exogenous_trace("edf", seed)
+    near_req, near_w, near_t = _exogenous_trace("nearest_first", seed)
+    np.testing.assert_array_equal(edf_w, near_w)
+    horizon = min(edf_t, near_t)               # compare up to the shorter episode
+    assert [r for r in edf_req if r[0] <= horizon] == [r for r in near_req if r[0] <= horizon]
+
+
+def test_request_accounting_and_critical_metrics_from_event_log():
+    """Recount deliveries/critical metrics independently from the event log."""
+    critical = {p.name for p in E.PACKAGE_TYPES if p.urgency == 3}
+    for policy in ("edf", "nearest_first", "random"):
+        for seed in range(15):
+            env = MediFlightEnv(record_events=True)
+            rng = np.random.default_rng(seed)
+            _, info = env.reset(seed=seed)
+            events = list(info["events"])
+            done = False
+            while not done:
+                _, _, te, tr, info = env.step(BASELINES[policy](env, rng))
+                events += info["events"]
+                done = te or tr
+            created = [e for e in events if e["type"] == "order_created"]
+            rejected = [e for e in events if e["type"] == "order_rejected"]
+            on_time = [e for e in events if e["type"] == "deliver" and e["on_time"]]
+            assert info["requests_total"] == len(created) + len(rejected)
+            assert info["orders_created"] + info["rejected_busy"] == info["requests_total"]
+            assert info["critical_created"] == sum(e["order"]["type"] in critical for e in created)
+            assert info["critical_on_time"] == sum(e["package"] in critical for e in on_time)
+            assert info["critical_on_time"] <= info["critical_created"] <= info["critical_requests"]
+            assert accounting_balances(info)

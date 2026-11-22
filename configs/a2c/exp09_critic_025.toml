@@ -1,0 +1,7 @@
+name = "exp09_critic_025"
+description = "Critic loss coefficient 0.25 (weaker value fitting)"
+
+[hyperparameters]
+critic_coeff = 0.25
+
+[env]

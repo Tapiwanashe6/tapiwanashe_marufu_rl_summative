@@ -1,0 +1,6 @@
+name = "exp01_baseline"
+description = "Reference: lr 5e-4, gamma 0.99, buffer 100k, batch 128, eps 1.0->0.05 over 100k frames, hard target every 1000 steps, Double DQN"
+
+[hyperparameters]
+
+[env]

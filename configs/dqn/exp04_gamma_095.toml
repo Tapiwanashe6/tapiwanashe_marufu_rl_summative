@@ -1,0 +1,7 @@
+name = "exp04_gamma_095"
+description = "Discount 0.95 (shorter planning horizon, ~20 decisions)"
+
+[hyperparameters]
+gamma = 0.95
+
+[env]

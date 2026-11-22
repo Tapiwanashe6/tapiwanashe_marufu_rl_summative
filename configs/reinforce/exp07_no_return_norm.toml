@@ -1,0 +1,7 @@
+name = "exp07_no_return_norm"
+description = "Raw (unnormalised) returns"
+
+[hyperparameters]
+normalize_returns = false
+
+[env]

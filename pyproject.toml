@@ -1,0 +1,13 @@
+[project]
+name = "mediflight-ai"
+version = "0.1.0"
+description = "Mission-based medical drone delivery Gymnasium simulation"
+requires-python = ">=3.11"
+dependencies = ["gymnasium>=1.0,<2", "numpy>=1.26,<3"]
+
+[project.optional-dependencies]
+rl = ["torch>=2.3", "torchrl>=0.6", "tensordict>=0.6"]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

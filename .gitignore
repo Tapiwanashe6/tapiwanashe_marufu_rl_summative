@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pth
+logs/*.csv
+.DS_Store
+.python-version.local
+# Generated artefacts (regenerate with the exporter / training scripts)
+visualization/events.json
+*.pt
+logs/**
+!logs/.gitkeep

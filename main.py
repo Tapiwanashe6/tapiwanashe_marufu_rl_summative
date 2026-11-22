@@ -1,23 +1,42 @@
-"""Reproducible first-run demonstration (random policy baseline)."""
+"""MediFlight AI entry point: `uv run main.py`.
+
+Currently runs one verbose episode of a reference policy so the environment can
+be inspected end to end. Once training is complete this becomes the launcher for
+the best trained agent (see play.py).
+"""
+from __future__ import annotations
+
+import argparse
+
+import numpy as np
+
 from environment import MediFlightEnv
+from environment.baselines import BASELINES
 
 
-def main():
+def main() -> None:
+    p = argparse.ArgumentParser(description="Run one verbose MediFlight AI episode.")
+    p.add_argument("--policy", choices=sorted(BASELINES), default="edf")
+    p.add_argument("--seed", type=int, default=42)
+    args = p.parse_args()
+
     env = MediFlightEnv(render_mode="ansi")
-    obs, info = env.reset(seed=42)
-    print("MediFlight AI — random baseline")
+    env.reset(seed=args.seed)
+    rng = np.random.default_rng(args.seed + 10_000)
+    print(f"MediFlight AI | policy={args.policy} (reference baseline, not a trained agent) "
+          f"| seed={args.seed}")
     print(env.render())
-    total = 0.0
-    for step in range(200):
-        action = env.action_space.sample()
-        obs, reward, terminated, truncated, info = env.step(action)
+    total, done, info = 0.0, False, {}
+    while not done:
+        _, reward, terminated, truncated, info = env.step(BASELINES[args.policy](env, rng))
         total += reward
-        print(f"step={step:03d} action={action:02d} event={info['event']:<24} "
-              f"reward={reward:7.1f} battery={info['battery']:5.1f} "
-              f"time={info['time_min']:6.1f}")
-        if terminated or truncated:
-            break
-    print(f"Episode reward={total:.1f} | {info}")
+        done = terminated or truncated
+        print(f"step {env.steps:03d} | t={info['time_min']:6.1f} | {info['action_name']:<26} "
+              f"| r={reward:+7.2f} | battery={info['battery']:5.1f}% | {info['weather']:5s} "
+              f"| on-time={info['delivered_on_time']:.0f} expired={info['expired']:.0f}")
+    print(f"\nEpisode return {total:.2f} | on-time {info['delivered_on_time']:.0f} / "
+          f"{info['orders_created']:.0f} orders | late {info['delivered_late']:.0f} | "
+          f"expired {info['expired']:.0f} | crashed {bool(info['crashes'])}")
     env.close()
 
 

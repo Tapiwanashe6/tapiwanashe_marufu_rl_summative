@@ -122,7 +122,32 @@ The measured results are in `results/`:
 
 They are summarised in the report (`report/`).
 
-<!-- RESULTS_SUMMARY: filled in from results/test_results.json after the final analysis -->
+**Held-out test set** (200 seeds, 5 trained models per algorithm, 500k frames each).
+The 95% CI is a normal-approximation CI over the 200 scenarios. The difference from EDF is a
+paired bootstrap (10,000 resamples) on the same seeds.
+
+| Policy | Return ± 95% CI | vs EDF [95% CI] | Critical orders on time | Crash rate |
+|---|---|---|---|---|
+| **DQN** | **33.88 ± 1.72** | **+12.32 [+10.42, +14.26]** | **33.2%** | 1.9% |
+| PPO | 26.42 ± 1.69 | +4.86 [+2.98, +6.81] | 30.6% | 2.4% |
+| A2C | 21.52 ± 2.05 | −0.03 [−2.34, +2.39] | 26.9% | 1.9% |
+| REINFORCE | 20.21 ± 1.57 | −1.35 [−3.17, +0.58] | 26.4% | 0.7% |
+| EDF dispatcher | 21.56 ± 2.01 | — | 23.4% | 1.5% |
+| Nearest-first | 3.32 ± 2.47 | — | 8.1% | 5.5% |
+| Random (valid actions) | −65.75 ± 2.00 | — | 11.5% | 97.0% |
+
+DQN and PPO beat EDF; A2C and REINFORCE are statistically tied with it. The agents gain by
+**triage**: they deliver about as many orders on time as EDF, but more of them critical (blood,
+emergency kits). In return they accept about one late delivery per shift.
+
+**Follow-up (an extension; the table above is final).** Candidates were trained for 2M frames
+and selected on validation seeds only. The test set was then used once more, for the two
+winners only:
+- the DQN with a 2×256 network reached **39.79 ± 1.72**, +18.23 [+16.36, +20.13] vs EDF, with
+  36.7% of critical orders on time;
+- PPO reached 32.12 ± 1.73.
+
+Both improved on their 500k versions by about 6 points. `uv run main.py` showcases this DQN.
 
 ## Repository layout
 
@@ -130,24 +155,27 @@ They are summarised in the report (`report/`).
 environment/   custom_env.py (Gymnasium env), entities.py (map, packages, weather, drone),
                observation_spec.py, baselines.py, rendering.py (episode recorder)
 training/      common.py, dqn_training.py, pg_training.py (PPO, A2C, REINFORCE), sweep.py
-configs/       44 hyperparameter configurations (TOML)
-evaluation/    protocol.py (seeds, metrics, CIs), compare.py, plots.py, report_tables.py
+configs/       44 hyperparameter configurations + 3 follow-up configurations (TOML)
+evaluation/    protocol.py (seeds, metrics, CIs), compare.py, followup.py, plots.py, report_tables.py
+logs/          per-run train.csv, eval.csv, config.json, summary.json
+report/        REPORT_DRAFT.md (source), build.py, report.pdf, report.docx
 visualization/ index.html, app.js, style.css (Three.js viewer), export_events.py, episodes/
-models/        dqn/, pg/: selected checkpoints (all checkpoints: see the release archive)
+models/        dqn/, pg/: all 155 trained checkpoints (sweep + follow-up)
 results/       analysis outputs (JSON / Markdown)
 assets/        figures and screenshots
 tests/         pytest suite
 main.py, play.py
 ```
 
-The full set of 140 checkpoints and the raw training logs are too large for the repository.
-They are published as a release archive and should be extracted into the project root.
+All checkpoints and run logs are committed (about 55 MB in total), so every number in the report
+can be re-evaluated without retraining. Example: `uv run python -m evaluation.compare test`.
 
 ## Compute
 
 All experiments ran CPU-only on an Apple M1 laptop (8 cores, 16 GB), with one thread per run and
 7 runs in parallel. The networks are small MLPs (2×128) and the cost is dominated by stepping
-the Python environment, so a GPU would not speed this up. All 132 sweep runs took about 2.5 hours.
+the Python environment, so a GPU would not speed this up. All 132 sweep runs took about 2.5 hours. The 15 follow-up runs (2M frames each) took about 1 hour
+per DQN run and about 20 minutes per PPO run.
 
 ## Limitations
 

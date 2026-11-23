@@ -2,7 +2,7 @@
 
 **Student Name:** Tapiwanashe Gift Marufu
 **Video Recording:** [link to be added]
-**GitHub Repository:** https://github.com/<username>/tapiwanashe_marufu_rl_summative
+**GitHub Repository:** https://github.com/Tapiwanashe6/tapiwanashe_marufu_rl_summative
 
 ## 1. Project Overview
 

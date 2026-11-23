@@ -220,7 +220,7 @@ def train_reinforce(cfg: dict) -> dict:
         log.log("train", {"iteration": it, "frames": frames, "episodes": episodes,
                           "loss_objective": round(float(out["loss_actor"].detach()), 6),
                           "loss_critic": round(float(out["loss_value"].detach()), 6) if cfg["use_baseline"] else "",
-                          "entropy": round(float(ent), 6), "grad_norm": round(gn, 4),
+                          "entropy": round(float(ent.detach()), 6), "grad_norm": round(gn, 4),
                           "return_std": round(float(g.std()), 4),
                           "train_episodes": len(trajectories),
                           "train_return": sum(ep_returns) / len(ep_returns),

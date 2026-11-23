@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp04_gamma_095",
+  "seed": 2,
+  "frames": 500192,
+  "episodes": 13616,
+  "wall_s": 329.2,
+  "best_val_return": 28.42084262005874,
+  "best_frames": 460280,
+  "final_val_return": 28.4208,
+  "model_path": "models/pg/reinforce_exp04_gamma_095_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 18899
+}

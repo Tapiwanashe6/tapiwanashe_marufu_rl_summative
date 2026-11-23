@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp10_rollout_512",
+  "seed": 0,
+  "frames": 500224,
+  "episodes": 13315,
+  "wall_s": 277.4,
+  "best_val_return": 30.420582627737623,
+  "best_frames": 380416,
+  "final_val_return": 25.8668,
+  "model_path": "models/pg/ppo_exp10_rollout_512_seed0.pt",
+  "torch": "2.15.0",
+  "pid": 19993
+}

@@ -1,0 +1,26 @@
+{
+  "dqn": {
+    "name": "exp10_vanilla_dqn",
+    "val_return_mean": 36.763976970439174,
+    "val_return_std": 0.4854687304168939,
+    "seeds": 3
+  },
+  "reinforce": {
+    "name": "exp08_episodes_2",
+    "val_return_mean": 22.77197614033351,
+    "val_return_std": 4.040483995293578,
+    "seeds": 3
+  },
+  "ppo": {
+    "name": "exp06_epochs_10",
+    "val_return_mean": 30.95325686003194,
+    "val_return_std": 1.229294615775954,
+    "seeds": 3
+  },
+  "a2c": {
+    "name": "exp01_baseline",
+    "val_return_mean": 25.206756812397703,
+    "val_return_std": 0.5188606430413433,
+    "seeds": 3
+  }
+}

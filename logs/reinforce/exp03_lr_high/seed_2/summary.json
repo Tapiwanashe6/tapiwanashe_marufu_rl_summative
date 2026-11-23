@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp03_lr_high",
+  "seed": 2,
+  "frames": 500225,
+  "episodes": 13024,
+  "wall_s": 328.3,
+  "best_val_return": 20.550975213296873,
+  "best_frames": 340089,
+  "final_val_return": 16.9063,
+  "model_path": "models/pg/reinforce_exp03_lr_high_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 18829
+}

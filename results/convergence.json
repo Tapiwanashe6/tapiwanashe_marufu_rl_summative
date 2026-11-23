@@ -1,0 +1,50 @@
+{
+  "dqn": {
+    "episodes_mean": 6055.2,
+    "episodes_std": 1202.9414782108063,
+    "frames_mean": 180000.0,
+    "per_seed_episodes": [
+      6617.0,
+      4540.0,
+      7083.0,
+      4989.0,
+      7047.0
+    ]
+  },
+  "reinforce": {
+    "episodes_mean": 3363.6,
+    "episodes_std": 2243.1577742102763,
+    "frames_mean": 120053.0,
+    "per_seed_episodes": [
+      1662.0,
+      7218.0,
+      2270.0,
+      2278.0,
+      3390.0
+    ]
+  },
+  "ppo": {
+    "episodes_mean": 4299.4,
+    "episodes_std": 843.6390223312337,
+    "frames_mean": 153190.4,
+    "per_seed_episodes": [
+      4460.0,
+      5658.0,
+      3423.0,
+      3996.0,
+      3960.0
+    ]
+  },
+  "a2c": {
+    "episodes_mean": 2275.0,
+    "episodes_std": 629.9365047367869,
+    "frames_mean": 80012.8,
+    "per_seed_episodes": [
+      1737.0,
+      2377.0,
+      1707.0,
+      2297.0,
+      3257.0
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp09_critic_025",
+  "seed": 1,
+  "frames": 500032,
+  "episodes": 14144,
+  "wall_s": 225.7,
+  "best_val_return": 27.40903547501773,
+  "best_frames": 480000,
+  "final_val_return": 25.0333,
+  "model_path": "models/pg/a2c_exp09_critic_025_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19511
+}

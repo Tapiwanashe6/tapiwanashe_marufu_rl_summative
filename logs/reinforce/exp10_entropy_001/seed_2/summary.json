@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp10_entropy_001",
+  "seed": 2,
+  "frames": 500051,
+  "episodes": 13120,
+  "wall_s": 350.1,
+  "best_val_return": 20.64515708669831,
+  "best_frames": 380056,
+  "final_val_return": 18.8122,
+  "model_path": "models/pg/reinforce_exp10_entropy_001_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19188
+}

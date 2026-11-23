@@ -86,7 +86,7 @@ def train(config_path: str, seed: int | None = None, overrides: dict | None = No
     next_eval = 0
     window: dict[str, list[float]] = {"loss": [], "q": [], "td": [], "gn": []}
     ep_window: list[dict] = []
-    log_every = 2_000
+    log_every = min(2_000, cfg["eval_interval_frames"])
     next_log = log_every
     for batch in collector:
         frames += batch.numel()

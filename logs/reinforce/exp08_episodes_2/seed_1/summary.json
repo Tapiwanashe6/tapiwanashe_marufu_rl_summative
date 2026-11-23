@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp08_episodes_2",
+  "seed": 1,
+  "frames": 500032,
+  "episodes": 13832,
+  "wall_s": 340.9,
+  "best_val_return": 28.493628499173752,
+  "best_frames": 400016,
+  "final_val_return": 24.1786,
+  "model_path": "models/pg/reinforce_exp08_episodes_2_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19061
+}

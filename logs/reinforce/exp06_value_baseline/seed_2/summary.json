@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp06_value_baseline",
+  "seed": 2,
+  "frames": 500028,
+  "episodes": 13152,
+  "wall_s": 328.3,
+  "best_val_return": 21.397165954275867,
+  "best_frames": 100162,
+  "final_val_return": 19.7535,
+  "model_path": "models/pg/reinforce_exp06_value_baseline_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 18959
+}

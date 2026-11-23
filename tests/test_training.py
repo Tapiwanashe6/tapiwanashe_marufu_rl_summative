@@ -96,10 +96,12 @@ def test_all_experiment_configs_are_valid():
     files = sorted(Path(common.ROOT, "configs").glob("*/*.toml"))
     per_algo = {}
     for f in files:
-        algo = f.parent.name
+        followup = f.parent.name == "followup"      # configs/followup/followup_<algo>_*.toml
+        algo = f.stem.split("_")[1] if followup else f.parent.name
         d = dqn_training.DEFAULTS if algo == "dqn" else pg_training.DEFAULTS[algo]
         cfg = common.load_config(f, d)
         common.env_config(cfg["env"])
-        per_algo[algo] = per_algo.get(algo, 0) + 1
+        if not followup:
+            per_algo[algo] = per_algo.get(algo, 0) + 1
     assert set(per_algo) == {"dqn", "ppo", "a2c", "reinforce"}
     assert all(n >= 10 for n in per_algo.values()), per_algo

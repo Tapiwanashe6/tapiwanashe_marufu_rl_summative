@@ -1,0 +1,11 @@
+TEST dqn            return   33.88 ± 1.72 | on-time 9.77 | critical 0.332 | crash 0.019
+TEST reinforce      return   20.21 ± 1.57 | on-time 8.49 | critical 0.264 | crash 0.007
+TEST ppo            return   26.42 ± 1.69 | on-time 9.03 | critical 0.306 | crash 0.024
+TEST a2c            return   21.52 ± 2.05 | on-time 8.71 | critical 0.269 | crash 0.019
+TEST random         return  -65.75 ± 1.99 | on-time 3.20 | critical 0.115 | crash 0.970
+TEST nearest_first  return    3.32 ± 2.47 | on-time 10.66 | critical 0.081 | crash 0.055
+TEST edf            return   21.56 ± 2.01 | on-time 9.88 | critical 0.234 | crash 0.015
+  dqn - edf: +12.32 [+10.42, +14.26]
+  reinforce - edf: -1.35 [-3.17, +0.58]
+  ppo - edf: +4.86 [+2.98, +6.81]
+  a2c - edf: -0.03 [-2.34, +2.39]

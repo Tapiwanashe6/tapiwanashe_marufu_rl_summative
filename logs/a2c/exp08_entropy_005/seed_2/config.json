@@ -1,0 +1,24 @@
+{
+  "seed": 2,
+  "total_frames": 500000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 0.5,
+  "gamma": 0.99,
+  "lr": 0.0007,
+  "gae_lambda": 1.0,
+  "frames_per_batch": 64,
+  "num_envs": 8,
+  "entropy_coeff": 0.05,
+  "critic_coeff": 0.5,
+  "normalize_advantage": false,
+  "name": "exp08_entropy_005",
+  "description": "Entropy coefficient 0.05",
+  "env": {},
+  "config_path": "configs/a2c/exp08_entropy_005.toml"
+}

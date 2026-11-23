@@ -34,10 +34,13 @@ def _git_commit() -> str:
         return "unknown"
 
 
-def jobs_for(algos, seeds):
+def jobs_for(algos, seeds, only: list[str] | None = None):
+    """All (config, seed) jobs; `only` restricts to "algo/exp_name" entries."""
     jobs = []
     for algo in algos:
         for cfg in sorted((ROOT / "configs" / algo).glob("*.toml")):
+            if only and f"{algo}/{cfg.stem}" not in only:
+                continue
             for seed in seeds:
                 jobs.append({"algo": algo, "config": str(cfg.relative_to(ROOT)), "name": cfg.stem,
                              "seed": seed})
@@ -73,15 +76,17 @@ def main() -> None:
     p.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
     p.add_argument("--workers", type=int, default=6)
     p.add_argument("--total-frames", type=int, help="override budget (default: config/common default)")
+    p.add_argument("--configs", nargs="+", metavar="ALGO/EXP",
+                   help="only these configs, e.g. dqn/exp01_baseline ppo/exp06_epochs_10")
     p.add_argument("--force", action="store_true", help="re-run jobs that already finished")
     p.add_argument("--dry-run", action="store_true")
     a = p.parse_args()
 
-    jobs = jobs_for(a.algos, a.seeds)
+    jobs = jobs_for(a.algos, a.seeds, a.configs)
     todo = [j for j in jobs if a.force or not
             (ROOT / "logs" / j["algo"] / j["name"] / f"seed_{j['seed']}" / "summary.json").exists()]
     print(f"{len(jobs)} jobs, {len(jobs) - len(todo)} already done, {len(todo)} to run "
-          f"with {a.workers} workers")
+          f"with {a.workers} workers", flush=True)
     if a.dry_run:
         for j in todo:
             print(" ", " ".join(command(j, a.total_frames)))

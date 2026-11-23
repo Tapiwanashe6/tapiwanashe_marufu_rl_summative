@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp06_batch_small",
+  "seed": 1,
+  "frames": 500000,
+  "episodes": 14860,
+  "wall_s": 729.5,
+  "best_val_return": 33.41065298394513,
+  "best_frames": 500000,
+  "final_val_return": 33.4107,
+  "model_path": "models/dqn/dqn_exp06_batch_small_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 16817,
+  "grad_steps": 123752
+}

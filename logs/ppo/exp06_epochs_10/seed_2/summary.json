@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp06_epochs_10",
+  "seed": 2,
+  "frames": 501760,
+  "episodes": 13811,
+  "wall_s": 312.1,
+  "best_val_return": 31.96499689708145,
+  "best_frames": 481280,
+  "final_val_return": 24.301,
+  "model_path": "models/pg/ppo_exp06_epochs_10_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19858
+}

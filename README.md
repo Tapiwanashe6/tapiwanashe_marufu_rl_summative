@@ -1,59 +1,158 @@
-# MediFlight AI
+# MediFlight AI: mission-based RL for medical drone dispatch
 
-A mission-based Gymnasium reinforcement learning environment for emergency medical drone logistics.
+A single drone, based at a medical distribution depot, serves 3 hospitals, 3 pharmacies and
+5 homes. Requests for blood, emergency kits, vaccines, prescriptions and medicines arrive
+over a 4-hour shift. Each request has a deadline, and some have a cold-chain limit. The agent
+decides what to load, where to fly, when to return and when to charge. It works with a
+limited battery and payload, and the weather can change during the shift.
+
+Four TorchRL agents are trained on the same custom Gymnasium environment: **DQN**,
+**REINFORCE**, **PPO** and **A2C**. They are compared with two hand-written dispatchers,
+nearest-first and EDF (urgency / earliest-deadline-first with battery-feasible routing).
+The comparison uses identical held-out scenarios.
+
+![3D mission-control viewer](assets/viewer.png)
 
 ## Quick start
 
 ```bash
-uv sync
-uv run main.py
-uv run --extra dev pytest -q
+uv sync            # Python 3.12, CPU-only PyTorch, TorchRL 0.15, Gymnasium 1.x
+uv run main.py     # best trained agent: terminal decision log + 3D viewer in the browser
 ```
 
-Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
+`uv run main.py` loads the best agent and plays one episode (seed 42). It prints every
+decision, including the action, the policy's confidence, the reward, battery, weather and
+events, and records the episode. It then serves the viewer at
+`http://127.0.0.1:8001/index.html` and opens it on that recording. Press Ctrl+C to stop.
 
-## Environment
+| Command | What it does |
+|---|---|
+| `uv run play.py --algo ppo --seed 7` | Best PPO checkpoint on scenario seed 7 |
+| `uv run play.py --model models/dqn/<file>.pt` | Any saved checkpoint |
+| `uv run play.py --no-viewer --delay 0.3` | Terminal only, paced for reading |
+| `uv run main.py --policy edf` | Reference baseline (edf / nearest_first / random), terminal only |
+| `uv run python -m visualization.export_events --policy edf nearest_first --seed 42 7` | Baseline replays for the viewer |
+| `uv run pytest` | Test suite (environment contracts, physics, replay fidelity, training smoke tests, analysis pipeline) |
 
-One drone serves 3 hospitals, 3 pharmacies and 5 homes. Each dispatch is a **round trip** from a medical depot; flight is simulated in time and energy rather than physically controlled. At decision boundaries, the drone is at base. Requests persist, new orders arrive, and deadlines may expire while the drone is busy. The agent selects the next order or chooses to wait/recharge.
+**How the "best agent" is chosen.** Test data is never used. For each algorithm, the
+configuration with the highest mean validation return is selected (`results/best_configs.json`).
+If the follow-up experiment (`evaluation/followup.py`, 2M-frame budget) produced a variant that
+beat that configuration on the same validation seeds, the variant is used instead
+(`results/followup_selection.json`). The algorithm with the best validation return is then
+used, together with its training seed that scored highest on validation. Currently this is the
+2M-frame DQN with a 2×256 network (`models/dqn/dqn_followup_dqn_2m_wide_seed2.pt`).
+`--algo` overrides the algorithm, and `--main-study` ignores the follow-up and uses the
+500k-frame selection.
 
-- Actions: `0` wait 5 min, `1..11` deliver to a site, `12` return to base (redundant in this prototype), `13` recharge.
-- Observation: 60-element float vector with normalized battery/time/weather/location/capacity plus 5 values for each site (pending, urgency, remaining deadline, weight, distance).
-- Reward: on-time delivery +30/+60/+100 by urgency; expired/late order −40; invalid action −10; unsafe dispatch −12; travel energy/time cost; charging and waiting costs.
-- Termination: 240 simulated minutes (Gymnasium `truncated=True`).
-- Weather changes every ten simulated minutes and affects energy/travel time at dispatch.
+## Environment (`environment/`)
 
-**Limitations:** This is a dispatch model, not a low-level flight controller. Each site holds at most one pending order; the drone transports one package per trip. Arrival generation is a lightweight simulation and not calibrated to real demand. Battery percentage is an abstract energy budget. The 'return' action is currently redundant, retained for compatibility with the initial action specification; it should be removed or redesigned before training. Weather is sampled at ten-minute boundaries but a trip's wind factor is fixed at dispatch. Late deliveries are counted as missed; no clinical outcomes are modeled.
+| | |
+|---|---|
+| **Decision model** | Semi-MDP. Each action is a macro-action with variable duration, and time, weather and demand advance in order while it runs |
+| **Actions (25, discrete)** | `0` hold 5 min · `1–11` load the pending order at a site (only at the depot) · `12–22` fly to a site (delivers on-board cargo for it) · `23` return to depot · `24` charge 10 min |
+| **Action mask** | Removes only *impossible* actions (for example loading away from the depot, or exceeding payload). Risky flights stay available, so the agent must learn to manage the battery |
+| **Observation (108 floats in [-1, 1])** | 20 global features: battery, time left, weather one-hot, location one-hot, payload, energy needed to reach the depot. 8 features per site: pending, on board, urgency, value, deadline slack, weight, cold-chain time left, leg energy. Full table: `environment/observation_spec.py` |
+| **Reward** | + package value for on-time delivery (reduced if late) − deadline misses − spoilage − energy − invalid actions − 50 for a crash (plus the value of cargo and open orders lost) − a penalty if the shift ends away from the depot |
+| **Start state** | Full battery at the depot, 4–6 initial orders, initial weather drawn from the stationary distribution |
+| **Terminal states** | End of the 240-min shift (true termination) or crash / stranded battery. Truncation happens only at the 500-step safety cap |
+| **Stochasticity** | Poisson demand per site, a Markov weather chain (calm / windy / storm) and wind gusts on each flight. These come from separate pre-sampled random streams, so every policy faces identical demand and weather on a given seed |
 
-## Next milestones
+`environment/rendering.py` records an episode as JSON events and state snapshots
+(schema 2.0). The viewer (`visualization/`, Three.js) rebuilds everything from that record,
+so it shows exactly what the Python environment computed.
 
-1. Improve request-generation event timing and add action masks or remove redundant actions.
-2. Add a deterministic heuristic baseline and evaluate over many seeds.
-3. Integrate DQN, REINFORCE, PPO and A2C using TorchRL.
-4. Log 10 meaningful hyperparameter runs per algorithm with identical evaluation seeds.
-5. Build the Three.js renderer using logged trip events and create the report/video.
+## Training (`training/`)
 
-This release is the **first environment prototype**, not a trained RL system.
-
-## Phase 2 — 3D mission-control replay
-
-Generate a deterministic event log from the **real Python Gymnasium environment**:
+All four agents use TorchRL components: `Collector`, `GymWrapper`, `ActionMask`,
+`QValueActor`, `DQNLoss`, `ClipPPOLoss`, `A2CLoss`, `ReinforceLoss`, `GAE`, `MaskedCategorical`
+and the replay buffers.
 
 ```bash
-uv run python -m visualization.export_events --seed 42 --policy heuristic
+uv run python -m training.dqn_training --config configs/dqn/exp01_baseline.toml --seed 0
+uv run python -m training.pg_training  --algo ppo --config configs/ppo/exp01_baseline.toml --seed 0
+uv run python -m training.sweep --seeds 0 1 2 --workers 7     # all 44 configs x 3 seeds (resumable)
 ```
 
-Then launch the browser viewer from the project root:
+- `configs/<algo>/exp01–exp11*.toml`: 11 configurations per algorithm (44 in total). Each is
+  a baseline plus one controlled change, and exp11 is always a no-action-mask ablation.
+  Unknown hyperparameter names raise an error.
+- Every run trains for 500k environment frames with greedy validation every 20k frames.
+  Each run writes `logs/<algo>/<config>/seed_<k>/{config.json, train.csv, eval.csv, summary.json}`.
+  The best-validation checkpoint is saved to `models/{dqn,pg}/`.
+- `logs/sweep_manifest.json` records the git commit, budget and exit code of every run. The
+  sweep skips runs that already have a `summary.json`, so re-running it resumes after a failure.
+
+## Evaluation protocol (`evaluation/`)
+
+| Seed set | Seeds | Used for |
+|---|---|---|
+| Training | from run seed 0–4 | learning only |
+| Validation | 10000–10049 | checkpoint choice during training, config selection |
+| Test (held out) | 20000–20199 | final comparison only, never for any choice |
 
 ```bash
-uv run python -m http.server 8001
+uv run python -m evaluation.compare validate     # every run x 50 validation seeds
+uv run python -m evaluation.compare select       # best config per algorithm (validation only)
+uv run python -m training.sweep --configs dqn/<best> ppo/<best> ... --seeds 3 4   # 5 seeds for the selected configs
+uv run python -m evaluation.compare test         # selected agents + baselines on the 200 test seeds
+uv run python -m evaluation.compare generalise   # shifted scenarios (first 100 test seeds)
+uv run python -m evaluation.plots                # figures -> assets/figures/
+uv run python -m evaluation.report_tables        # hyperparameter tables -> results/
 ```
 
-Open **http://localhost:8001/visualization/** in Chrome or Safari. Use Play/Pause, Next/Previous, Reset, timeline seek and speed controls. Drag to orbit and scroll to zoom. Stop the server with Ctrl+C.
+- **Selection** used seeds 0–2 for all 44 configs. Seeds 3–4 were trained afterwards, only
+  for the four selected configs, to make the final estimate more precise. Selection was not
+  repeated after adding them.
+- **Policies** are evaluated greedily (masked argmax). Baselines use a seeded tie-break RNG.
+- **Confidence intervals.** Per-policy 95% CIs use the normal approximation
+  `mean ± 1.96·s/√n` over the test episodes. Agent-vs-baseline comparisons are *paired*: on
+  each test seed the per-episode difference is taken (agent return averaged over its training
+  seeds, minus the baseline's), then 10,000 bootstrap resamples of those 200 differences give a
+  percentile 95% CI. Every policy sees the same demand and weather on a given seed, which is
+  what makes pairing valid.
+- **Generalisation scenarios**: nominal, high demand (×1.5), low demand (×0.6), stormy (storm
+  bias 0.15) and busy start (8–10 initial orders).
 
-The browser must be online on the first load: Three.js and OrbitControls are imported from jsDelivr CDN. The Python exporter and local JSON file work offline. To replay a random baseline, regenerate with `--policy random` and refresh the browser. The heuristic is a rule-based comparison, **not a trained RL agent**.
+## Results
 
-### Accuracy of the visual replay
+The measured results are in `results/`:
+- `test_results.json`: per-policy test metrics with CIs, plus paired differences vs EDF and nearest-first
+- `generalisation.json`, `config_tables.json`, `best_configs.json`, `hyperparameter_tables.md`
+- figures in `assets/figures/`
 
-`visualization/events.json` is produced by stepping the **same `MediFlightEnv`** used in training. Each event records pre/post state, action, reward, weather, outstanding orders and delivery outcome. Completed delivery actions are animated as a **depot → destination → depot** flight, matching the environment's round-trip assumption. Time and battery values are snapshots at action boundaries, not continuous telemetry; intermediate drone positions are interpolated for presentation. The simulation does not implement flight physics, collision avoidance or real navigation. The 3D town is a schematic illustration, not a geographic map.
+They are summarised in the report (`report/`).
 
-The original 14-action space is preserved. Action 12 (`return to base`) is currently redundant because all deliveries are round trips; this should be reconsidered before RL training. For credible training, also refine order-arrival timing and reward accounting, and expand environment tests.
+<!-- RESULTS_SUMMARY: filled in from results/test_results.json after the final analysis -->
+
+## Repository layout
+
+```
+environment/   custom_env.py (Gymnasium env), entities.py (map, packages, weather, drone),
+               observation_spec.py, baselines.py, rendering.py (episode recorder)
+training/      common.py, dqn_training.py, pg_training.py (PPO, A2C, REINFORCE), sweep.py
+configs/       44 hyperparameter configurations (TOML)
+evaluation/    protocol.py (seeds, metrics, CIs), compare.py, plots.py, report_tables.py
+visualization/ index.html, app.js, style.css (Three.js viewer), export_events.py, episodes/
+models/        dqn/, pg/: selected checkpoints (all checkpoints: see the release archive)
+results/       analysis outputs (JSON / Markdown)
+assets/        figures and screenshots
+tests/         pytest suite
+main.py, play.py
+```
+
+The full set of 140 checkpoints and the raw training logs are too large for the repository.
+They are published as a release archive and should be extracted into the project root.
+
+## Compute
+
+All experiments ran CPU-only on an Apple M1 laptop (8 cores, 16 GB), with one thread per run and
+7 runs in parallel. The networks are small MLPs (2×128) and the cost is dominated by stepping
+the Python environment, so a GPU would not speed this up. All 132 sweep runs took about 2.5 hours.
+
+## Limitations
+
+This is a dispatch-level model, not a flight controller: there are no physical dynamics,
+airspace or regulations. Demand rates, energy use and package attributes are plausible but
+not calibrated to real data. There is one drone, and each site has at most one active request
+at a time (further requests to a busy site are counted as rejected). Clinical outcomes are
+represented only through urgency weights and deadlines.

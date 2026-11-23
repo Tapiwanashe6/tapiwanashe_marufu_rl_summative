@@ -1,0 +1,127 @@
+{
+  "runs": [
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m.toml",
+      "name": "followup_dqn_2m",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 3682.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m.toml",
+      "name": "followup_dqn_2m",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 3687.7
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m.toml",
+      "name": "followup_dqn_2m",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 3694.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m.toml",
+      "name": "followup_dqn_2m",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 3697.2
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m.toml",
+      "name": "followup_dqn_2m",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 3703.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m_wide.toml",
+      "name": "followup_dqn_2m_wide",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 4227.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m_wide.toml",
+      "name": "followup_dqn_2m_wide",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 4243.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/followup/followup_ppo_2m.toml",
+      "name": "followup_ppo_2m",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 1303.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/followup/followup_ppo_2m.toml",
+      "name": "followup_ppo_2m",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 1310.8
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/followup/followup_ppo_2m.toml",
+      "name": "followup_ppo_2m",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 1238.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/followup/followup_ppo_2m.toml",
+      "name": "followup_ppo_2m",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 1233.6
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/followup/followup_ppo_2m.toml",
+      "name": "followup_ppo_2m",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 1007.7
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m_wide.toml",
+      "name": "followup_dqn_2m_wide",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 2779.5
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m_wide.toml",
+      "name": "followup_dqn_2m_wide",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 2774.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/followup/followup_dqn_2m_wide.toml",
+      "name": "followup_dqn_2m_wide",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 2776.6
+    }
+  ],
+  "git_commit": "9391b0c52714da22bcafa49fd421485ee8a1bddf-dirty",
+  "started": "2026-11-22T20:18:46.990044+00:00",
+  "finished": "2026-11-22T22:06:38.453098+00:00"
+}

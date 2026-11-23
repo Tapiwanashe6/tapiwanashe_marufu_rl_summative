@@ -6,16 +6,22 @@ import numpy as np
 from environment import MediFlightEnv
 from environment.baselines import edf_policy
 from environment.rendering import SCHEMA_VERSION, EpisodeRecorder, MemorySink
-from visualization.export_events import export
+from visualization.export_events import baseline_act, export_episode
 
 
 def test_export_file_roundtrip(tmp_path):
-    path = tmp_path / "events.json"
-    doc = export(seed=42, policy="edf", output=path)
-    on_disk = json.loads(path.read_text())
+    doc = export_episode(baseline_act("edf", 42), 42, "edf", "EDF", "baseline", out_dir=tmp_path)
+    on_disk = json.loads((tmp_path / "edf_seed42.json").read_text())
     assert on_disk["schema_version"] == SCHEMA_VERSION
     assert len(on_disk["header"]["map"]["nodes"]) == 12
     assert len(on_disk["steps"]) == doc["summary"]["steps"] > 0
+    index = json.loads((tmp_path / "index.json").read_text())
+    assert index["episodes"][0]["file"] == "edf_seed42.json"
+    # Every flight in the log has a matching arrival or crash (the viewer relies on this).
+    for st in on_disk["steps"]:
+        types = [e["type"] for e in st["events"]]
+        if "takeoff" in types:
+            assert ("arrive" in types) != ("crash" in types)
 
 
 def test_recorded_states_match_environment():

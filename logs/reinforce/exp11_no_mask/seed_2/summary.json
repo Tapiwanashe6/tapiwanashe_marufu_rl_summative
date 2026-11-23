@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp11_no_mask",
+  "seed": 2,
+  "frames": 500117,
+  "episodes": 9120,
+  "wall_s": 324.4,
+  "best_val_return": -46.7,
+  "best_frames": 120371,
+  "final_val_return": -46.7,
+  "model_path": "models/pg/reinforce_exp11_no_mask_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19255
+}

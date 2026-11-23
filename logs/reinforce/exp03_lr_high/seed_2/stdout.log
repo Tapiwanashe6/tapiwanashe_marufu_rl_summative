@@ -1,0 +1,1 @@
+[reinforce] exp03_lr_high seed=2 frames=500225 best_val_return=20.55 @ 340089 | 328.3s

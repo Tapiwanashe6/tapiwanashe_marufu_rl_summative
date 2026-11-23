@@ -1,0 +1,31 @@
+{
+  "seed": 1,
+  "total_frames": 500000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 10.0,
+  "gamma": 0.99,
+  "lr": 0.002,
+  "buffer_size": 100000,
+  "batch_size": 128,
+  "frames_per_batch": 16,
+  "updates_per_batch": 4,
+  "init_random_frames": 5000,
+  "eps_start": 1.0,
+  "eps_end": 0.05,
+  "eps_decay_frames": 100000,
+  "target_update": "hard",
+  "target_update_interval": 1000,
+  "tau": 0.005,
+  "double_dqn": true,
+  "loss_function": "smooth_l1",
+  "name": "exp03_lr_high",
+  "description": "Learning rate 2e-3 (faster but risk of divergence)",
+  "env": {},
+  "config_path": "configs/dqn/exp03_lr_high.toml"
+}

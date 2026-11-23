@@ -1,0 +1,10 @@
+8 jobs, 0 already done, 8 to run with 7 workers
+[1/8] a2c/exp01_baseline seed=3 ok (242.5s)
+[2/8] a2c/exp01_baseline seed=4 ok (245.2s)
+[3/8] ppo/exp06_epochs_10 seed=3 ok (324.0s)
+[4/8] reinforce/exp08_episodes_2 seed=3 ok (351.1s)
+[5/8] reinforce/exp08_episodes_2 seed=4 ok (352.0s)
+[6/8] ppo/exp06_epochs_10 seed=4 ok (276.0s)
+[7/8] dqn/exp10_vanilla_dqn seed=4 ok (598.1s)
+[8/8] dqn/exp10_vanilla_dqn seed=3 ok (600.0s)
+Sweep finished: 0 failed

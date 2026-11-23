@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp09_soft_target",
+  "seed": 1,
+  "frames": 500000,
+  "episodes": 14393,
+  "wall_s": 778.9,
+  "best_val_return": 36.414664647243235,
+  "best_frames": 380000,
+  "final_val_return": 35.8115,
+  "model_path": "models/dqn/dqn_exp09_soft_target_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 17714,
+  "grad_steps": 123752
+}

@@ -1,0 +1,39 @@
+{
+  "dqn": {
+    "candidates": {
+      "exp10_vanilla_dqn": {
+        "val_return_mean": 35.74654509995625,
+        "val_return_std": 2.0496356207385316,
+        "seeds": 5
+      },
+      "followup_dqn_2m": {
+        "val_return_mean": 41.03104396971615,
+        "val_return_std": 2.7921348294944273,
+        "seeds": 5
+      },
+      "followup_dqn_2m_wide": {
+        "val_return_mean": 42.97650424149689,
+        "val_return_std": 1.8425313883318721,
+        "seeds": 5
+      }
+    },
+    "winner": "followup_dqn_2m_wide",
+    "winner_is_original": false
+  },
+  "ppo": {
+    "candidates": {
+      "exp06_epochs_10": {
+        "val_return_mean": 30.829248502022732,
+        "val_return_std": 1.0734862496073754,
+        "seeds": 5
+      },
+      "followup_ppo_2m": {
+        "val_return_mean": 34.63438247763746,
+        "val_return_std": 2.241409110155605,
+        "seeds": 5
+      }
+    },
+    "winner": "followup_ppo_2m",
+    "winner_is_original": false
+  }
+}

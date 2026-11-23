@@ -1,0 +1,31 @@
+{
+  "seed": 0,
+  "total_frames": 2000000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 10.0,
+  "gamma": 0.99,
+  "lr": 0.0005,
+  "buffer_size": 100000,
+  "batch_size": 128,
+  "frames_per_batch": 16,
+  "updates_per_batch": 4,
+  "init_random_frames": 5000,
+  "eps_start": 1.0,
+  "eps_end": 0.05,
+  "eps_decay_frames": 100000,
+  "target_update": "hard",
+  "target_update_interval": 1000,
+  "tau": 0.005,
+  "double_dqn": false,
+  "loss_function": "smooth_l1",
+  "name": "followup_dqn_2m",
+  "description": "Follow-up: selected DQN config (exp10, vanilla target) trained for 2M frames instead of 500k",
+  "env": {},
+  "config_path": "configs/followup/followup_dqn_2m.toml"
+}

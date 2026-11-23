@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp05_clip_030",
+  "seed": 1,
+  "frames": 501760,
+  "episodes": 13288,
+  "wall_s": 261.7,
+  "best_val_return": 25.643603015738297,
+  "best_frames": 481280,
+  "final_val_return": 23.0837,
+  "model_path": "models/pg/ppo_exp05_clip_030_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19808
+}

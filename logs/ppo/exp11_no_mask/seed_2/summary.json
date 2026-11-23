@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp11_no_mask",
+  "seed": 2,
+  "frames": 501760,
+  "episodes": 10228,
+  "wall_s": 180.4,
+  "best_val_return": 8.06301925283456,
+  "best_frames": 401408,
+  "final_val_return": 3.5081,
+  "model_path": "models/pg/ppo_exp11_no_mask_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 20065
+}

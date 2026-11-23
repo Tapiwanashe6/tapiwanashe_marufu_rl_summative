@@ -1,0 +1,8 @@
+name = "followup_ppo_2m"
+description = "Follow-up: selected PPO config (exp06, 10 epochs) trained for 2M frames instead of 500k"
+
+[hyperparameters]
+ppo_epochs = 10
+total_frames = 2_000_000
+
+[env]

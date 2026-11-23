@@ -1,0 +1,1133 @@
+{
+  "runs": [
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 807.0
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 807.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 808.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 808.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 809.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 810.8
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 813.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp05_buffer_small.toml",
+      "name": "exp05_buffer_small",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 848.8
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp05_buffer_small.toml",
+      "name": "exp05_buffer_small",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 853.7
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 856.7
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 858.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 861.0
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 861.3
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 865.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp06_batch_small.toml",
+      "name": "exp06_batch_small",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 732.7
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp06_batch_small.toml",
+      "name": "exp06_batch_small",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 735.4
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp06_batch_small.toml",
+      "name": "exp06_batch_small",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 738.3
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp05_buffer_small.toml",
+      "name": "exp05_buffer_small",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 879.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp07_explore_fast.toml",
+      "name": "exp07_explore_fast",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 884.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp07_explore_fast.toml",
+      "name": "exp07_explore_fast",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 884.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp07_explore_fast.toml",
+      "name": "exp07_explore_fast",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 890.2
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp08_explore_slow.toml",
+      "name": "exp08_explore_slow",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 801.0
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp08_explore_slow.toml",
+      "name": "exp08_explore_slow",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 803.4
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp08_explore_slow.toml",
+      "name": "exp08_explore_slow",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 802.2
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp10_vanilla_dqn.toml",
+      "name": "exp10_vanilla_dqn",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 704.2
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp09_soft_target.toml",
+      "name": "exp09_soft_target",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 783.5
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp09_soft_target.toml",
+      "name": "exp09_soft_target",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 782.4
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp09_soft_target.toml",
+      "name": "exp09_soft_target",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 781.5
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 345.9
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 347.9
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp10_vanilla_dqn.toml",
+      "name": "exp10_vanilla_dqn",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 689.8
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp10_vanilla_dqn.toml",
+      "name": "exp10_vanilla_dqn",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 690.0
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 736.3
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 733.5
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 345.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 346.6
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 734.8
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 332.7
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 333.6
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 334.2
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 329.4
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 331.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 331.5
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 328.8
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp04_gamma_095.toml",
+      "name": "exp04_gamma_095",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 332.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp05_gamma_0999.toml",
+      "name": "exp05_gamma_0999",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 332.9
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp05_gamma_0999.toml",
+      "name": "exp05_gamma_0999",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 334.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp05_gamma_0999.toml",
+      "name": "exp05_gamma_0999",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 330.1
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp06_value_baseline.toml",
+      "name": "exp06_value_baseline",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 327.9
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp06_value_baseline.toml",
+      "name": "exp06_value_baseline",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 332.5
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp06_value_baseline.toml",
+      "name": "exp06_value_baseline",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 331.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp07_no_return_norm.toml",
+      "name": "exp07_no_return_norm",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 329.3
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp07_no_return_norm.toml",
+      "name": "exp07_no_return_norm",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 330.1
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp07_no_return_norm.toml",
+      "name": "exp07_no_return_norm",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 329.4
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp08_episodes_2.toml",
+      "name": "exp08_episodes_2",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 340.1
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp08_episodes_2.toml",
+      "name": "exp08_episodes_2",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 343.8
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp08_episodes_2.toml",
+      "name": "exp08_episodes_2",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 342.6
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp09_episodes_32.toml",
+      "name": "exp09_episodes_32",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 331.7
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp09_episodes_32.toml",
+      "name": "exp09_episodes_32",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 337.5
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp09_episodes_32.toml",
+      "name": "exp09_episodes_32",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 332.9
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp10_entropy_001.toml",
+      "name": "exp10_entropy_001",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 341.1
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp10_entropy_001.toml",
+      "name": "exp10_entropy_001",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 344.8
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 340.8
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp10_entropy_001.toml",
+      "name": "exp10_entropy_001",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 353.2
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 337.3
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 242.4
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 234.9
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 327.9
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 228.6
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 225.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 223.6
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 225.4
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 222.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 223.3
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 224.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp04_gae_095.toml",
+      "name": "exp04_gae_095",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 225.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp04_gae_095.toml",
+      "name": "exp04_gae_095",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 225.5
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp04_gae_095.toml",
+      "name": "exp04_gae_095",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 222.9
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp05_td0.toml",
+      "name": "exp05_td0",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 223.6
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp05_td0.toml",
+      "name": "exp05_td0",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 223.5
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp05_td0.toml",
+      "name": "exp05_td0",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 222.9
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp06_rollout_256.toml",
+      "name": "exp06_rollout_256",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 200.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp06_rollout_256.toml",
+      "name": "exp06_rollout_256",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 203.2
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp06_rollout_256.toml",
+      "name": "exp06_rollout_256",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 201.9
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp07_entropy_0.toml",
+      "name": "exp07_entropy_0",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 223.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp07_entropy_0.toml",
+      "name": "exp07_entropy_0",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 223.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp07_entropy_0.toml",
+      "name": "exp07_entropy_0",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 223.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp08_entropy_005.toml",
+      "name": "exp08_entropy_005",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 225.2
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp08_entropy_005.toml",
+      "name": "exp08_entropy_005",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 225.1
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp08_entropy_005.toml",
+      "name": "exp08_entropy_005",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 227.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp09_critic_025.toml",
+      "name": "exp09_critic_025",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 224.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp09_critic_025.toml",
+      "name": "exp09_critic_025",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 229.0
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp09_critic_025.toml",
+      "name": "exp09_critic_025",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 227.4
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp10_adv_norm.toml",
+      "name": "exp10_adv_norm",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 228.2
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp10_adv_norm.toml",
+      "name": "exp10_adv_norm",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 229.8
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp10_adv_norm.toml",
+      "name": "exp10_adv_norm",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 230.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 214.7
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 216.2
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 215.4
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 264.8
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 267.1
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 264.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 265.8
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 265.4
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp02_lr_low.toml",
+      "name": "exp02_lr_low",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 265.7
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 266.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 266.9
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp03_lr_high.toml",
+      "name": "exp03_lr_high",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 265.4
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp04_clip_010.toml",
+      "name": "exp04_clip_010",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 267.4
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp04_clip_010.toml",
+      "name": "exp04_clip_010",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 266.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp04_clip_010.toml",
+      "name": "exp04_clip_010",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 266.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp05_clip_030.toml",
+      "name": "exp05_clip_030",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 266.6
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp05_clip_030.toml",
+      "name": "exp05_clip_030",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 265.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp05_clip_030.toml",
+      "name": "exp05_clip_030",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 266.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp06_epochs_10.toml",
+      "name": "exp06_epochs_10",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 315.3
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp07_gae_080.toml",
+      "name": "exp07_gae_080",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 270.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp06_epochs_10.toml",
+      "name": "exp06_epochs_10",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 314.1
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp07_gae_080.toml",
+      "name": "exp07_gae_080",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 267.3
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp06_epochs_10.toml",
+      "name": "exp06_epochs_10",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 315.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp07_gae_080.toml",
+      "name": "exp07_gae_080",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 268.1
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp08_entropy_0.toml",
+      "name": "exp08_entropy_0",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 266.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp08_entropy_0.toml",
+      "name": "exp08_entropy_0",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 264.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp08_entropy_0.toml",
+      "name": "exp08_entropy_0",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 261.5
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp09_entropy_005.toml",
+      "name": "exp09_entropy_005",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 268.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp09_entropy_005.toml",
+      "name": "exp09_entropy_005",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 268.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp09_entropy_005.toml",
+      "name": "exp09_entropy_005",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 266.9
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp10_rollout_512.toml",
+      "name": "exp10_rollout_512",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 280.7
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp10_rollout_512.toml",
+      "name": "exp10_rollout_512",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 269.1
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 0,
+      "returncode": 0,
+      "wall_s": 197.7
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp10_rollout_512.toml",
+      "name": "exp10_rollout_512",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 227.4
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 1,
+      "returncode": 0,
+      "wall_s": 184.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp11_no_mask.toml",
+      "name": "exp11_no_mask",
+      "seed": 2,
+      "returncode": 0,
+      "wall_s": 183.6
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 242.5
+    },
+    {
+      "algo": "a2c",
+      "config": "configs/a2c/exp01_baseline.toml",
+      "name": "exp01_baseline",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 245.2
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp06_epochs_10.toml",
+      "name": "exp06_epochs_10",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 324.0
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp08_episodes_2.toml",
+      "name": "exp08_episodes_2",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 351.1
+    },
+    {
+      "algo": "reinforce",
+      "config": "configs/reinforce/exp08_episodes_2.toml",
+      "name": "exp08_episodes_2",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 352.0
+    },
+    {
+      "algo": "ppo",
+      "config": "configs/ppo/exp06_epochs_10.toml",
+      "name": "exp06_epochs_10",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 276.0
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp10_vanilla_dqn.toml",
+      "name": "exp10_vanilla_dqn",
+      "seed": 4,
+      "returncode": 0,
+      "wall_s": 598.1
+    },
+    {
+      "algo": "dqn",
+      "config": "configs/dqn/exp10_vanilla_dqn.toml",
+      "name": "exp10_vanilla_dqn",
+      "seed": 3,
+      "returncode": 0,
+      "wall_s": 600.0
+    }
+  ],
+  "git_commit": "9391b0c52714da22bcafa49fd421485ee8a1bddf-dirty",
+  "started": "2026-11-22T19:26:54.939054+00:00",
+  "seeds": [
+    3,
+    4
+  ],
+  "total_frames_override": null,
+  "python": "3.12.13 (main, Jun  2 2026, 22:42:28) [Clang 22.1.3 ]",
+  "finished": "2026-11-22T19:36:54.978065+00:00"
+}

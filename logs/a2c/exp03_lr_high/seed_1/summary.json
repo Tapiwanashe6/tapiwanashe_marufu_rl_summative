@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp03_lr_high",
+  "seed": 1,
+  "frames": 500032,
+  "episodes": 13704,
+  "wall_s": 220.0,
+  "best_val_return": 26.267185322923353,
+  "best_frames": 180032,
+  "final_val_return": 24.0392,
+  "model_path": "models/pg/a2c_exp03_lr_high_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19337
+}

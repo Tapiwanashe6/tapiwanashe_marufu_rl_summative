@@ -1,0 +1,5 @@
+nominal {'nearest_first': 4.1, 'edf': 20.6, 'dqn': 34.7, 'reinforce': 20.0, 'ppo': 26.8, 'a2c': 21.5}
+high_demand {'nearest_first': -0.3, 'edf': 15.6, 'dqn': 27.9, 'reinforce': 15.2, 'ppo': 22.9, 'a2c': 16.2}
+low_demand {'nearest_first': 14.6, 'edf': 31.8, 'dqn': 40.0, 'reinforce': 29.3, 'ppo': 32.2, 'a2c': 30.2}
+stormy {'nearest_first': -6.7, 'edf': 16.5, 'dqn': 27.0, 'reinforce': 13.9, 'ppo': 20.3, 'a2c': 13.2}
+busy_start {'nearest_first': -0.2, 'edf': 20.3, 'dqn': 32.9, 'reinforce': 19.2, 'ppo': 26.1, 'a2c': 21.6}

@@ -1,0 +1,14 @@
+{
+  "algo": "reinforce",
+  "name": "exp07_no_return_norm",
+  "seed": 2,
+  "frames": 500027,
+  "episodes": 13352,
+  "wall_s": 326.1,
+  "best_val_return": 23.009208357751326,
+  "best_frames": 300095,
+  "final_val_return": 21.4203,
+  "model_path": "models/pg/reinforce_exp07_no_return_norm_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19047
+}

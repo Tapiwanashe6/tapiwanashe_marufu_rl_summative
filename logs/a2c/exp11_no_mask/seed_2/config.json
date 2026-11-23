@@ -1,0 +1,26 @@
+{
+  "seed": 2,
+  "total_frames": 500000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 0.5,
+  "gamma": 0.99,
+  "lr": 0.0007,
+  "gae_lambda": 1.0,
+  "frames_per_batch": 64,
+  "num_envs": 8,
+  "entropy_coeff": 0.01,
+  "critic_coeff": 0.5,
+  "normalize_advantage": false,
+  "name": "exp11_no_mask",
+  "description": "Ablation: no action mask (invalid actions penalised -1)",
+  "env": {
+    "use_action_mask": false
+  },
+  "config_path": "configs/a2c/exp11_no_mask.toml"
+}

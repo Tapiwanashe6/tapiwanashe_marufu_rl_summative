@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp11_no_mask",
+  "seed": 1,
+  "frames": 500000,
+  "episodes": 11580,
+  "wall_s": 730.3,
+  "best_val_return": 24.12124249969741,
+  "best_frames": 480000,
+  "final_val_return": 14.8265,
+  "model_path": "models/dqn/dqn_exp11_no_mask_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 18524,
+  "grad_steps": 123752
+}

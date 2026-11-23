@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp01_baseline",
+  "seed": 2,
+  "frames": 501760,
+  "episodes": 13026,
+  "wall_s": 260.4,
+  "best_val_return": 21.598210000303848,
+  "best_frames": 61440,
+  "final_val_return": 18.8069,
+  "model_path": "models/pg/ppo_exp01_baseline_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19684
+}

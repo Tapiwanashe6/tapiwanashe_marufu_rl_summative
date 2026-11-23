@@ -1,0 +1,9 @@
+name = "followup_dqn_2m_wide"
+description = "Follow-up: selected DQN config (exp10) with a wider 256x256 network, 2M frames"
+
+[hyperparameters]
+double_dqn = false
+total_frames = 2_000_000
+hidden = [256, 256]
+
+[env]

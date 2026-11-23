@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp06_rollout_256",
+  "seed": 0,
+  "frames": 500224,
+  "episodes": 12868,
+  "wall_s": 196.7,
+  "best_val_return": 22.30185714864756,
+  "best_frames": 140032,
+  "final_val_return": 21.9752,
+  "model_path": "models/pg/a2c_exp06_rollout_256_seed0.pt",
+  "torch": "2.15.0",
+  "pid": 19423
+}

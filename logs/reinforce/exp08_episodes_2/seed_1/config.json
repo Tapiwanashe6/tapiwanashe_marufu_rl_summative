@@ -1,0 +1,23 @@
+{
+  "seed": 1,
+  "total_frames": 500000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 1.0,
+  "gamma": 0.99,
+  "lr": 0.001,
+  "episodes_per_batch": 2,
+  "use_baseline": false,
+  "normalize_returns": true,
+  "entropy_coeff": 0.0,
+  "critic_coeff": 0.5,
+  "name": "exp08_episodes_2",
+  "description": "2 episodes per update (high-variance gradient)",
+  "env": {},
+  "config_path": "configs/reinforce/exp08_episodes_2.toml"
+}

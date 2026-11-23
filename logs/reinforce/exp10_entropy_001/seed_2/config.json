@@ -1,0 +1,23 @@
+{
+  "seed": 2,
+  "total_frames": 500000,
+  "eval_interval_frames": 20000,
+  "eval_episodes": 20,
+  "hidden": [
+    128,
+    128
+  ],
+  "activation": "tanh",
+  "max_grad_norm": 1.0,
+  "gamma": 0.99,
+  "lr": 0.001,
+  "episodes_per_batch": 8,
+  "use_baseline": false,
+  "normalize_returns": true,
+  "entropy_coeff": 0.01,
+  "critic_coeff": 0.5,
+  "name": "exp10_entropy_001",
+  "description": "Entropy bonus 0.01",
+  "env": {},
+  "config_path": "configs/reinforce/exp10_entropy_001.toml"
+}

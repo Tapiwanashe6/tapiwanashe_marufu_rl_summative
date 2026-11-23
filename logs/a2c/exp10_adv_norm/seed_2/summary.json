@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp10_adv_norm",
+  "seed": 2,
+  "frames": 500032,
+  "episodes": 13841,
+  "wall_s": 227.5,
+  "best_val_return": 26.192966628813714,
+  "best_frames": 200000,
+  "final_val_return": 23.9656,
+  "model_path": "models/pg/a2c_exp10_adv_norm_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19568
+}

@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp07_gae_080",
+  "seed": 1,
+  "frames": 501760,
+  "episodes": 13859,
+  "wall_s": 263.8,
+  "best_val_return": 29.26392131557027,
+  "best_frames": 501760,
+  "final_val_return": 29.2639,
+  "model_path": "models/pg/ppo_exp07_gae_080_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19880
+}

@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp05_td0",
+  "seed": 2,
+  "frames": 500032,
+  "episodes": 14234,
+  "wall_s": 219.5,
+  "best_val_return": 16.311838859904988,
+  "best_frames": 140032,
+  "final_val_return": 14.8671,
+  "model_path": "models/pg/a2c_exp05_td0_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19409
+}

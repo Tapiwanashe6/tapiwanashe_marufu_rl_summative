@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "followup_dqn_2m",
+  "seed": 1,
+  "frames": 2000000,
+  "episodes": 55112,
+  "wall_s": 3678.2,
+  "best_val_return": 47.10466915339315,
+  "best_frames": 1920000,
+  "final_val_return": 41.0786,
+  "model_path": "models/dqn/dqn_followup_dqn_2m_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 23016,
+  "grad_steps": 498752
+}

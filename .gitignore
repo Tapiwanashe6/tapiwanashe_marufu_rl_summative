@@ -1,13 +1,14 @@
+# Python / tooling
 .venv/
 __pycache__/
 .pytest_cache/
 *.pyc
-*.pth
-logs/*.csv
 .DS_Store
 .python-version.local
-# Generated artefacts (regenerate with the exporter / training scripts)
+
+# Generated scratch files
 visualization/events.json
-*.pt
-logs/**
-!logs/.gitkeep
+report/_report_print.html
+
+# Trained checkpoints (models/**/*.pt) and run logs (logs/) ARE committed: they are small
+# (~55 MB in total) and let anyone re-run evaluation without retraining.

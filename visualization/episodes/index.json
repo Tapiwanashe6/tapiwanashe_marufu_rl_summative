@@ -1,0 +1,136 @@
+{
+  "episodes": [
+    {
+      "file": "dqn_exp10_vanilla_dqn_seed42.json",
+      "policy": "dqn_exp10_vanilla_dqn",
+      "label": "DQN agent (exp10_vanilla_dqn)",
+      "kind": "agent",
+      "seed": 42,
+      "return": 24.6,
+      "delivered_on_time": 7.0,
+      "critical_on_time": 5.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "dqn_followup_dqn_2m_wide_seed42.json",
+      "policy": "dqn_followup_dqn_2m_wide",
+      "label": "DQN agent (followup_dqn_2m_wide)",
+      "kind": "agent",
+      "seed": 42,
+      "return": 53.33,
+      "delivered_on_time": 11.0,
+      "critical_on_time": 7.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "ppo_exp06_epochs_10_seed42.json",
+      "policy": "ppo_exp06_epochs_10",
+      "label": "PPO agent (exp06_epochs_10)",
+      "kind": "agent",
+      "seed": 42,
+      "return": 36.72,
+      "delivered_on_time": 8.0,
+      "critical_on_time": 6.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "ppo_followup_ppo_2m_seed7.json",
+      "policy": "ppo_followup_ppo_2m",
+      "label": "PPO agent (followup_ppo_2m)",
+      "kind": "agent",
+      "seed": 7,
+      "return": 57.45,
+      "delivered_on_time": 11.0,
+      "critical_on_time": 6.0,
+      "critical_requests": 18.0,
+      "crashed": false
+    },
+    {
+      "file": "ppo_followup_ppo_2m_seed42.json",
+      "policy": "ppo_followup_ppo_2m",
+      "label": "PPO agent (followup_ppo_2m)",
+      "kind": "agent",
+      "seed": 42,
+      "return": 47.01,
+      "delivered_on_time": 10.0,
+      "critical_on_time": 7.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "edf_seed7.json",
+      "policy": "edf",
+      "label": "EDF dispatcher (baseline)",
+      "kind": "baseline",
+      "seed": 7,
+      "return": 45.78,
+      "delivered_on_time": 10.0,
+      "critical_on_time": 5.0,
+      "critical_requests": 18.0,
+      "crashed": false
+    },
+    {
+      "file": "edf_seed42.json",
+      "policy": "edf",
+      "label": "EDF dispatcher (baseline)",
+      "kind": "baseline",
+      "seed": 42,
+      "return": 24.19,
+      "delivered_on_time": 9.0,
+      "critical_on_time": 4.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "nearest_first_seed7.json",
+      "policy": "nearest_first",
+      "label": "Nearest-first (baseline)",
+      "kind": "baseline",
+      "seed": 7,
+      "return": 14.14,
+      "delivered_on_time": 11.0,
+      "critical_on_time": 2.0,
+      "critical_requests": 18.0,
+      "crashed": false
+    },
+    {
+      "file": "nearest_first_seed42.json",
+      "policy": "nearest_first",
+      "label": "Nearest-first (baseline)",
+      "kind": "baseline",
+      "seed": 42,
+      "return": -26.68,
+      "delivered_on_time": 8.0,
+      "critical_on_time": 1.0,
+      "critical_requests": 14.0,
+      "crashed": false
+    },
+    {
+      "file": "random_seed7.json",
+      "policy": "random",
+      "label": "Random (baseline)",
+      "kind": "baseline",
+      "seed": 7,
+      "return": -84.49,
+      "delivered_on_time": 6.0,
+      "critical_on_time": 1.0,
+      "critical_requests": 16.0,
+      "crashed": true
+    },
+    {
+      "file": "random_seed42.json",
+      "policy": "random",
+      "label": "Random (baseline)",
+      "kind": "baseline",
+      "seed": 42,
+      "return": -82.5,
+      "delivered_on_time": 2.0,
+      "critical_on_time": 0.0,
+      "critical_requests": 7.0,
+      "crashed": true
+    }
+  ]
+}

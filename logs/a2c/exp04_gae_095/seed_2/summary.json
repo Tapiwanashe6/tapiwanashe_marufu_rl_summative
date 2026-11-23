@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp04_gae_095",
+  "seed": 2,
+  "frames": 500032,
+  "episodes": 13513,
+  "wall_s": 219.4,
+  "best_val_return": 25.34481066248765,
+  "best_frames": 120000,
+  "final_val_return": 18.9313,
+  "model_path": "models/pg/a2c_exp04_gae_095_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19365
+}

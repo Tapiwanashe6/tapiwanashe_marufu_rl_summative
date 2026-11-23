@@ -1,0 +1,8 @@
+name = "followup_dqn_2m"
+description = "Follow-up: selected DQN config (exp10, vanilla target) trained for 2M frames instead of 500k"
+
+[hyperparameters]
+double_dqn = false
+total_frames = 2_000_000
+
+[env]

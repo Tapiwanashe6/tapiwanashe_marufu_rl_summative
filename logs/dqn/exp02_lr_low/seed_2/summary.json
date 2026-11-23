@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp02_lr_low",
+  "seed": 2,
+  "frames": 500000,
+  "episodes": 15236,
+  "wall_s": 802.9,
+  "best_val_return": 28.80837322262881,
+  "best_frames": 460000,
+  "final_val_return": 27.2016,
+  "model_path": "models/dqn/dqn_exp02_lr_low_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 15120,
+  "grad_steps": 123752
+}

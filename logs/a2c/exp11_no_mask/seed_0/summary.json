@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp11_no_mask",
+  "seed": 0,
+  "frames": 500032,
+  "episodes": 10092,
+  "wall_s": 211.4,
+  "best_val_return": -46.7,
+  "best_frames": 20032,
+  "final_val_return": -46.7,
+  "model_path": "models/pg/a2c_exp11_no_mask_seed0.pt",
+  "torch": "2.15.0",
+  "pid": 19588
+}

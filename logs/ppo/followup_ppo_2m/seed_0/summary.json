@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "followup_ppo_2m",
+  "seed": 0,
+  "frames": 2000896,
+  "episodes": 55486,
+  "wall_s": 1300.2,
+  "best_val_return": 39.40131392524627,
+  "best_frames": 1861632,
+  "final_val_return": 37.1811,
+  "model_path": "models/pg/ppo_followup_ppo_2m_seed0.pt",
+  "torch": "2.15.0",
+  "pid": 25762
+}

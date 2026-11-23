@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp07_entropy_0",
+  "seed": 2,
+  "frames": 500032,
+  "episodes": 13555,
+  "wall_s": 220.3,
+  "best_val_return": 26.044027650603034,
+  "best_frames": 360000,
+  "final_val_return": 21.5652,
+  "model_path": "models/pg/a2c_exp07_entropy_0_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19459
+}

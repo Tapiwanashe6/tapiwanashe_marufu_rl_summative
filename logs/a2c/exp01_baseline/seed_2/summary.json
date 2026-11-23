@@ -1,0 +1,14 @@
+{
+  "algo": "a2c",
+  "name": "exp01_baseline",
+  "seed": 2,
+  "frames": 500032,
+  "episodes": 13594,
+  "wall_s": 225.0,
+  "best_val_return": 27.308978263059704,
+  "best_frames": 500032,
+  "final_val_return": 27.309,
+  "model_path": "models/pg/a2c_exp01_baseline_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19268
+}

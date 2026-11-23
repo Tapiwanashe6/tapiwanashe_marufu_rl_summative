@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp04_gamma_095",
+  "seed": 0,
+  "frames": 500000,
+  "episodes": 15111,
+  "wall_s": 853.0,
+  "best_val_return": 35.993476925301934,
+  "best_frames": 480000,
+  "final_val_return": 30.2243,
+  "model_path": "models/dqn/dqn_exp04_gamma_095_seed0.pt",
+  "torch": "2.15.0",
+  "pid": 15941,
+  "grad_steps": 123752
+}

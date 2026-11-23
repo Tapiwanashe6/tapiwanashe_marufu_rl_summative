@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp10_vanilla_dqn",
+  "seed": 3,
+  "frames": 500000,
+  "episodes": 14721,
+  "wall_s": 594.3,
+  "best_val_return": 36.90538740065203,
+  "best_frames": 460000,
+  "final_val_return": 31.5926,
+  "model_path": "models/dqn/dqn_exp10_vanilla_dqn_seed3.pt",
+  "torch": "2.15.0",
+  "pid": 20309,
+  "grad_steps": 123752
+}

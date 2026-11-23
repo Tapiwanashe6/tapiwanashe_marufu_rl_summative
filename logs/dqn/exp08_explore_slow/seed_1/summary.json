@@ -1,0 +1,15 @@
+{
+  "algo": "dqn",
+  "name": "exp08_explore_slow",
+  "seed": 1,
+  "frames": 500000,
+  "episodes": 15751,
+  "wall_s": 800.0,
+  "best_val_return": 38.42718905738544,
+  "best_frames": 500000,
+  "final_val_return": 38.4272,
+  "model_path": "models/dqn/dqn_exp08_explore_slow_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 17601,
+  "grad_steps": 123752
+}

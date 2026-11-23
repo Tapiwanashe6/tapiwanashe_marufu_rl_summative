@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp08_entropy_0",
+  "seed": 2,
+  "frames": 501760,
+  "episodes": 13345,
+  "wall_s": 258.3,
+  "best_val_return": 26.020703752435942,
+  "best_frames": 421888,
+  "final_val_return": 23.6337,
+  "model_path": "models/pg/ppo_exp08_entropy_0_seed2.pt",
+  "torch": "2.15.0",
+  "pid": 19961
+}

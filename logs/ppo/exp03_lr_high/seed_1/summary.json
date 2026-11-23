@@ -1,0 +1,14 @@
+{
+  "algo": "ppo",
+  "name": "exp03_lr_high",
+  "seed": 1,
+  "frames": 501760,
+  "episodes": 14141,
+  "wall_s": 263.8,
+  "best_val_return": 32.45460573468946,
+  "best_frames": 301056,
+  "final_val_return": 29.0643,
+  "model_path": "models/pg/ppo_exp03_lr_high_seed1.pt",
+  "torch": "2.15.0",
+  "pid": 19736
+}

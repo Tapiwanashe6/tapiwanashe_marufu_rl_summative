@@ -113,8 +113,8 @@ recorded by `EpisodeRecorder` (`environment/rendering.py`) as versioned JSON (sc
 `episode_start` record with the map and initial state, then one `step` record per decision
 containing the action, reward, timestamped domain events (order created, take-off, delivery,
 deadline missed, weather change, charge), the resulting state and the policy's Q-value or
-probability, then an `episode_end` summary. The sink interface also allows a live stream
-(Server-Sent Events) instead of a file. A Three.js viewer (`visualization/`) replays this
+probability, then an `episode_end` summary. Only the file sink is implemented, so the viewer is
+replay-only (the sink interface would also allow a live Server-Sent Events stream, which was not built). A Three.js viewer (`visualization/`) replays this
 stream in a 3D town: the depot with its charging pad, hospitals with rooftop helipads,
 pharmacies and homes, weather (clouds, rain and lightning in storms), four cameras, a radar
 minimap, and panels for reward, battery, payload, the last decision and active requests. The
@@ -125,10 +125,11 @@ viewer has no simulation logic, so it shows exactly what the environment compute
 requests on time, none late, for a return of 53.3. Seven of the 11 deliveries were critical
 (blood or emergency kits). It flew 7 sorties, most pairing a hospital with a nearby home in one
 trip. It recharged at the depot after almost every sortie and landed back at the depot at
-minute 244 with 8% battery, so it never risked a crash. One questionable habit is visible: it
+minute 244 with 8% battery (its last decision began at minute 235.6; an action started before the
+240-minute horizon is always completed), so it never risked a crash. One questionable habit is visible: it
 sometimes loads a package and then charges before leaving, which uses deadline slack.
 
-![Fig. 0 3D replay of the selected DQN agent (test-independent demo seed 42).](../assets/viewer.png)
+![Fig. 1 3D replay of the selected DQN agent (test-independent demo seed 42).](../assets/viewer.png)
 
 ## 3. System Analysis and Design
 
@@ -157,15 +158,15 @@ distribution (zero probability on invalid actions); value head `ValueOperator` (
 * **REINFORCE:** complete episodes via `env.rollout`, Monte-Carlo returns G_t, loss
   −log π(a_t|s_t)·Â_t through TorchRL `ReinforceLoss`; Â_t = normalised G_t, or G_t − V(s_t) with
   a learned baseline in one experiment; optional entropy bonus.
-* **PPO:** `Collector` rollouts (4 envs, 2048 frames), GAE(λ=0.95) advantages, clipped surrogate
+* **PPO:** `Collector` rollouts (2048 frames in total per update: 4 envs × 512 steps), GAE(λ=0.95) advantages, clipped surrogate
   `ClipPPOLoss` (ε=0.2), value and entropy terms, 4 epochs of 256-sample minibatches.
-* **A2C (4.4):** synchronous 8-env × 8-step rollouts, GAE(λ=1, i.e. n-step returns) from the
-  learned critic, single gradient step per rollout with `A2CLoss`.
+* **A2C (4.4):** synchronous 8-env × 8-step rollouts, GAE(λ=1: discounted rewards to the end of the
+  8-step rollout plus the critic's bootstrap value there), single gradient step per rollout with `A2CLoss`.
 
 ## 4. Implementation
 
-**Protocol.** Each algorithm was trained with a reference configuration and 10 one-factor
-variations of it, plus a no-mask ablation (row 11). Every configuration had a budget of 500,000
+**Protocol.** Each algorithm was trained with a reference configuration (row 01) and 9 one-factor
+variations of it (rows 02–10), plus a no-mask ablation (row 11). Every configuration had a budget of 500,000
 environment frames and was trained with 3 seeds (0–2). During training, the greedy policy was
 evaluated every 20k frames on the first 20 validation seeds, and the best checkpoint was kept.
 **Mean Reward** is the return of that checkpoint on all 50 validation seeds (10000–10049),
@@ -269,9 +270,9 @@ learned a weak working policy (+7.3), and the other two served only 6–8% of re
 
 **Observations.** A2C was the least sensitive algorithm: 7 of its 9 variations fell within 2
 points of the reference, and the reference itself was selected. The one large effect was
-bootstrapping. One-step TD advantages (λ = 0) lost 9 points. The critic is not accurate
-enough over 40-decision episodes, and Monte-Carlo n-step returns (λ = 1) worked better. Longer
-rollouts mean fewer updates within the same frame budget, and they cost 4 points. Without the
+bootstrapping. One-step TD advantages (λ = 0) lost 9 points: they rely entirely on a critic that
+is still inaccurate, while λ = 1 uses up to 8 real rewards before bootstrapping. Longer rollouts
+(8 × 32) cost 4 points: with one update per rollout, 500k frames allow about 1,950 updates instead of 7,800. Without the
 mask, A2C collapsed to the same always-hold policy as REINFORCE.
 
 ## 5. Results Discussion
@@ -301,11 +302,11 @@ mask, A2C collapsed to the same always-hold policy as REINFORCE.
 
 ### 5.1 Cumulative Rewards
 
-**Training.** Fig. 1 shows the cumulative reward of each training episode (thin lines) and of the greedy
+**Training.** Fig. 2 shows the cumulative reward of each training episode (thin lines) and of the greedy
 policy on validation seeds (thick lines) against training episodes, for each method's best
 configuration. All four algorithms climb from about −50 to −65 (a random-like policy that
-crashes or lets orders expire) to above the nearest-first baseline: REINFORCE and A2C within about 500–1,000
-episodes, PPO within about 1,500, and DQN (whose training episodes include exploration) within about 3,500.
+crashes or lets orders expire) to above the nearest-first baseline. How quickly each converges is measured with one definition in
+§5.2 (A2C fastest, then REINFORCE, PPO and DQN).
 
 - DQN's *training* return stays below its validation return throughout. Training episodes
   include ε-greedy exploration (ε ≥ 0.05), so the greedy policy is better than the behaviour
@@ -313,7 +314,7 @@ episodes, PPO within about 1,500, and DQN (whose training episodes include explo
 - REINFORCE and A2C have visibly noisier training curves. This is expected from Monte-Carlo
   returns from single episodes.
 
-![Fig. 1 Cumulative reward per episode over training episodes for each method's best model (5 training seeds).](../assets/figures/fig1_cumulative_rewards.png)
+![Fig. 2 Cumulative reward per episode over training episodes for each method's best model (5 training seeds).](../assets/figures/fig1_cumulative_rewards.png)
 
 **Validation (selection set).** Each selected configuration, scored as the mean over 5 trained
 models on 50 validation seeds:
@@ -339,8 +340,6 @@ the unbiased estimate.
 
 *Training-seed spread of the test return (SD of the 5 models):* DQN 0.75, PPO 1.43, A2C 0.76,
 REINFORCE 2.23.
-
-![Fig. 7 Held-out test return and on-time critical service (200 seeds, 95% CI).](../assets/figures/fig7_test_comparison.png)
 
 **Main findings.**
 
@@ -433,7 +432,7 @@ models per algorithm, with the 95% CI over the 100 scenarios:
 - **Every policy's return dropped under high demand and storms.** These conditions make the
   task harder in absolute terms, so the ranking matters more than the level.
 
-![Fig. 6 Return under shifted conditions.](../assets/figures/fig6_generalisation.png)
+![Fig. 6 Return minus EDF's return under shifted conditions (first 100 test seeds, mean over 5 models).](../assets/figures/fig6_generalisation.png)
 
 ### 5.4 Follow-up experiment: a larger training budget
 
@@ -512,9 +511,10 @@ condition. A2C and REINFORCE matched EDF but did not beat it.
    500k, 0.5 at 2M, 0.01 for EDF). That is rational under the reward (+0.25 v late) but may
    be unacceptable clinically.
 2. **A reward loophole at the end of the shift.** Only cargo *on board* at shift end is
-   penalised; pending orders at the depot are not. In replays, the 500k DQN sometimes loads a
-   package in the last minutes and then chooses to charge. It takes the −0.5 v penalty rather
-   than risk a flight. The penalty is small enough that the agent tolerates it.
+   penalised; pending orders at the depot are not, so the last minutes carry little reward signal.
+   On demo seed 42 the 500k DQN loaded a blood order (deadline minute 269) at minute 233.7 and then
+   charged, taking −5 where a 9-minute flight would have earned about +10: not a profitable exploit,
+   but a mistake the reward makes cheap.
 3. **The agents optimise the same reward they are evaluated on.** The improvement over EDF is
    partly an improvement on *this* reward's weighting of urgency against lateness. EDF
    optimises a different criterion (meeting deadlines).

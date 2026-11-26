@@ -1,4 +1,4 @@
-/Users/m1pro/Downloads/mediflight_ai 2/.venv/lib/python3.12/site-packages/torchrl/collectors/_single.py:255: FutureWarning: The env passed to Collector is missing transforms required by the policy (InitTracker). From torchrl v0.16 the collector will append them automatically. To enable that behavior now (and silence this warning), pass `auto_register_policy_transforms=True`. To opt out permanently, pass `auto_register_policy_transforms=False`.
+.venv/lib/python3.12/site-packages/torchrl/collectors/_single.py:255: FutureWarning: The env passed to Collector is missing transforms required by the policy (InitTracker). From torchrl v0.16 the collector will append them automatically. To enable that behavior now (and silence this warning), pass `auto_register_policy_transforms=True`. To opt out permanently, pass `auto_register_policy_transforms=False`.
   return super().__call__(*args, **kwargs)
 [92m2026-11-22 23:20:24,447 [torchrl][INFO][0m    Initialized LazyTensorStorage with torch.Size([100000]) shape[92m [END][0m
 [dqn] followup_dqn_2m_wide seed=4 frames=2000000 grad_steps=498752 best_val_return=45.15 @ 1780000 | 2773.4s

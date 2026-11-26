@@ -114,7 +114,7 @@ def save(fig, name: str) -> None:
 # --------------------------------------------------------------- figures
 def fig_cumulative_rewards(best, base) -> None:
     """Template 5.1: cumulative (per-episode) reward over training episodes, one subplot per method."""
-    fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharey=True)
+    fig, axes = plt.subplots(2, 2, figsize=(6.4, 4.4), sharey=True)
     for ax, algo in zip(axes.flat, ALGOS):
         dirs = seed_dirs(algo, best[algo]["name"])
         tr = [read_csv(d / "train.csv") for d in dirs]
@@ -132,8 +132,6 @@ def fig_cumulative_rewards(best, base) -> None:
         ax.set_xlabel("training episodes")
     for ax in axes[:, 0]:
         ax.set_ylabel("cumulative reward per episode")
-    fig.suptitle("Fig. 1  Cumulative episode reward over training episodes: training (thin, per seed) and greedy "
-                 "validation (thick: mean, band: min–max over seeds)", fontsize=9, color=INK2, y=1.0)
     fig.tight_layout()
     save(fig, "fig1_cumulative_rewards")
 
@@ -150,7 +148,7 @@ def fig_learning_comparison(best, base) -> None:
     frames_k(ax)
     ax.set_xlabel("environment frames")
     ax.set_ylabel("validation return (20 seeds)")
-    ax.set_title("Fig. 2  Validation return of each algorithm's selected configuration")
+    ax.set_title("Validation return of each algorithm's selected configuration")
     ax.legend(loc="lower right")
     save(fig, "fig2_learning_comparison")
 
@@ -158,7 +156,7 @@ def fig_learning_comparison(best, base) -> None:
 def fig_dqn_objective(best) -> None:
     dirs = seed_dirs("dqn", best["dqn"]["name"])
     rows = [read_csv(d / "train.csv") for d in dirs]
-    fig, axes = plt.subplots(1, 2, figsize=(9, 3.4))
+    fig, axes = plt.subplots(1, 2, figsize=(5.8, 2.4))
     for ax, key, title in ((axes[0], "loss", "TD loss (smooth-L1)"), (axes[1], "mean_q", "Mean Q of taken action")):
         for i, r in enumerate(rows):
             x, y = col(r, "frames"), col(r, key)
@@ -171,14 +169,12 @@ def fig_dqn_objective(best) -> None:
     axes[0].set_ylabel("loss")
     axes[1].set_ylabel("Q-value")
     axes[0].legend()
-    fig.suptitle(f"Fig. 3  DQN objective during training ({best['dqn']['name']}, one line per seed)",
-                 fontsize=9, color=INK2, y=1.02)
     fig.tight_layout()
     save(fig, "fig3_dqn_objective")
 
 
 def fig_pg_entropy(best) -> None:
-    fig, ax = plt.subplots(figsize=(7.5, 3.8))
+    fig, ax = plt.subplots(figsize=(4.6, 2.4))
     for algo in ("reinforce", "ppo", "a2c"):
         rows = [read_csv(d / "train.csv") for d in seed_dirs(algo, best[algo]["name"])]
         g, m, lo, hi = on_grid([col(r, "frames") for r in rows], [col(r, "entropy") for r in rows])
@@ -189,7 +185,6 @@ def fig_pg_entropy(best) -> None:
     ax.set_xlabel("environment frames")
     ax.set_ylabel("policy entropy (nats)")
     ax.set_ylim(bottom=0)
-    ax.set_title("Fig. 4  Policy entropy of the masked categorical policy (mean, min–max over seeds)")
     ax.legend()
     save(fig, "fig4_pg_entropy")
 
@@ -221,7 +216,7 @@ def convergence_table(best) -> dict:
 
 def fig_convergence(best) -> None:
     conv = convergence_table(best)
-    fig, ax = plt.subplots(figsize=(6.5, 3.2))
+    fig, ax = plt.subplots(figsize=(4.6, 2.1))
     y = np.arange(len(ALGOS))
     for i, algo in enumerate(ALGOS):
         c = conv[algo]
@@ -233,7 +228,6 @@ def fig_convergence(best) -> None:
     ax.set_yticks(y, [LABEL[a] for a in ALGOS])
     ax.invert_yaxis()
     ax.set_xlabel("training episodes to converge (dots: individual seeds)")
-    ax.set_title("Fig. 5  Episodes to reach 90% of the final validation plateau")
     ax.grid(axis="y", visible=False)
     save(fig, "fig5_convergence")
 
@@ -242,7 +236,7 @@ def fig_generalisation() -> None:
     gen = json.loads((RESULTS / "generalisation.json").read_text())
     scen = list(gen)
     policies = [*ALGOS, "nearest_first"]
-    fig, ax = plt.subplots(figsize=(8.5, 3.8))
+    fig, ax = plt.subplots(figsize=(5.2, 2.6))
     w = 0.16
     x = np.arange(len(scen))
     for i, p in enumerate(policies):
@@ -253,8 +247,7 @@ def fig_generalisation() -> None:
     ax.text(x[-1] + 0.45, 0, " EDF", va="center", fontsize=8, color=INK2)
     ax.set_xticks(x, [s.replace("_", " ") for s in scen])
     ax.set_ylabel("return minus EDF return")
-    ax.set_title("Fig. 6  Generalisation to unseen conditions (100 test seeds, mean over training seeds)")
-    ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, -0.12))
+    ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, -0.14), fontsize=7, handlelength=1.0, columnspacing=0.8)
     ax.grid(axis="x", visible=False)
     save(fig, "fig6_generalisation")
 
@@ -277,7 +270,7 @@ def fig_test_comparison() -> None:
     axes[0].set_yticks(range(len(order)), [LABEL[p] for p in order])
     axes[0].invert_yaxis()
     axes[1].xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
-    fig.suptitle("Fig. 7  Held-out test performance (200 seeds; bars: mean, whiskers: 95% CI)",
+    fig.suptitle("Held-out test performance (200 seeds; bars: mean, whiskers: 95% CI)",
                  fontsize=9, color=INK2, y=1.02)
     fig.tight_layout()
     save(fig, "fig7_test_comparison")
@@ -302,7 +295,7 @@ def fig_sweep_sensitivity(base) -> None:
         ax.grid(axis="y", visible=False)
     for ax in axes[1]:
         ax.set_xlabel("validation return (50 seeds; ± std over 3 training seeds)")
-    fig.suptitle("Fig. 8  Hyperparameter sweep: every configuration (dark bar = selected; dashed = EDF, "
+    fig.suptitle("Hyperparameter sweep: every configuration (dark bar = selected; dashed = EDF, "
                  "dotted = nearest-first)", fontsize=9, color=INK2, y=1.0)
     fig.tight_layout()
     save(fig, "fig8_sweep_sensitivity")

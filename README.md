@@ -158,7 +158,8 @@ training/      common.py, dqn_training.py, pg_training.py (PPO, A2C, REINFORCE),
 configs/       44 hyperparameter configurations + 3 follow-up configurations (TOML)
 evaluation/    protocol.py (seeds, metrics, CIs), compare.py, followup.py, plots.py, report_tables.py
 logs/          per-run train.csv, eval.csv, config.json, summary.json
-report/        REPORT_DRAFT.md (source), build.py, report.pdf, report.docx
+report/        final_report.pdf / .docx (submitted report, ALU template, built by fill_template.py);
+               REPORT_DRAFT.md + build.py -> report.pdf / report.docx (longer working draft)
 visualization/ index.html, app.js, style.css (Three.js viewer), export_events.py, episodes/
 models/        dqn/, pg/: all 155 trained checkpoints (sweep + follow-up)
 results/       analysis outputs (JSON / Markdown)

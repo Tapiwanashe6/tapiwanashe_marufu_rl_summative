@@ -11,6 +11,8 @@ Four TorchRL agents are trained on the same custom Gymnasium environment: **DQN*
 nearest-first and EDF (urgency / earliest-deadline-first with battery-feasible routing).
 The comparison uses identical held-out scenarios.
 
+**Video demonstration:** https://youtu.be/m70gpbfvkCI · **Report:** [`report/final_report.pdf`](report/final_report.pdf)
+
 ![3D mission-control viewer](assets/viewer.png)
 
 ## Quick start

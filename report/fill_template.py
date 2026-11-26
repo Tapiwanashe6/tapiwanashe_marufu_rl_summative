@@ -247,6 +247,42 @@ REFERENCES = [
 ]
 
 
+def _link_after(doc, t, url: str) -> None:
+    """Insert a clickable external hyperlink showing `url` right after the run holding w:t `t`."""
+    run = t.getparent()
+    rid = doc.part.relate_to(url, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+                             is_external=True)
+    link = run.makeelement(W("w:hyperlink"), {qn("r:id"): rid})
+    new = copy.deepcopy(run)
+    for child in list(new):
+        if child.tag != W("w:rPr"):
+            new.remove(child)
+    rpr = new.find(W("w:rPr"))
+    if rpr is None:
+        rpr = new.makeelement(W("w:rPr"), {})
+        new.insert(0, rpr)
+    for tag in ("w:b", "w:color", "w:u"):
+        for e in rpr.findall(W(tag)):
+            rpr.remove(e)
+    rpr.append(rpr.makeelement(W("w:color"), {W("w:val"): "0563C1"}))
+    rpr.append(rpr.makeelement(W("w:u"), {W("w:val"): "single"}))
+    txt = new.makeelement(W("w:t"), {})
+    txt.text = url
+    new.append(txt)
+    link.append(new)
+    # if the run has content after this w:t (e.g. a <w:br/>), split so the link sits before it
+    after = list(run)[list(run).index(t) + 1:]
+    run.addnext(link)
+    if after:
+        tail = copy.deepcopy(run)
+        for child in list(tail):
+            if child.tag != W("w:rPr"):
+                tail.remove(child)
+        for child in after:
+            tail.append(child)
+        link.addnext(tail)
+
+
 def fill(template: Path, out: Path, video: str | None) -> None:
     f = Filler(template)
     P = f.P
@@ -257,8 +293,13 @@ def fill(template: Path, out: Path, video: str | None) -> None:
     runs[1].find(W("w:t")).text = " Tapiwanashe Gift Marufu"
     p2 = P[2]._p
     ts = p2.findall(".//" + W("w:t"))
-    ts[1].text = f" {video or '[link to be added]'}"           # the line break is a separate <w:br/>
-    ts[3].text = " https://github.com/Tapiwanashe6/tapiwanashe_marufu_rl_summative"
+    ts[1].text = " "                                          # the line break is a separate <w:br/>
+    ts[3].text = " "
+    if video:
+        _link_after(f.doc, ts[1], video)
+    else:
+        ts[1].text = " [link to be added]"
+    _link_after(f.doc, ts[3], "https://github.com/Tapiwanashe6/tapiwanashe_marufu_rl_summative")
 
     # --- Project overview
     f.replace(4, "MediFlight AI trains an autonomous medical-delivery drone to dispatch blood, vaccines, emergency kits and medicines from one distribution centre to 11 hospitals, pharmacies and homes during a 4-hour shift. Demand exceeds what one drone can serve, so it must decide what to load, where to fly and when to charge under deadlines, cold-chain limits and changing weather. I built a custom Gymnasium [1] environment, trained DQN, REINFORCE, PPO and A2C with TorchRL [2], and compared them with dispatch heuristics on held-out scenarios.")

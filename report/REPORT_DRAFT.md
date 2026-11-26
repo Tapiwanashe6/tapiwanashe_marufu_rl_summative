@@ -1,7 +1,7 @@
 # Reinforcement Learning Summative Assignment Report
 
 **Student Name:** Tapiwanashe Gift Marufu
-**Video Recording:** [link to be added]
+**Video Recording:** https://youtu.be/m70gpbfvkCI
 **GitHub Repository:** https://github.com/Tapiwanashe6/tapiwanashe_marufu_rl_summative
 
 ## 1. Project Overview
